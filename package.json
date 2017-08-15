@@ -1,13 +1,32 @@
 {
-	"name": "wall",
-	"version": "1.0.0",
-	"description": "The Wall Project",
-	"main": "dist/main.js",
-	"scripts": {
-		"build": "tsc",
-		"start": "node ./dist/main.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "",
-	"license": "ISC"
+  "name": "wall",
+  "version": "1.0.0",
+  "description": "The Wall Project",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "snowbot3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/snowbot3/wall.git"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "debug": "^3.0.0",
+    "express": "^4.15.4",
+    "morgan": "^1.8.2",
+    "nedb": "^1.8.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.16.4",
+    "@types/debug": "0.0.30",
+    "@types/express": "^4.0.36",
+    "@types/morgan": "^1.7.32",
+    "@types/nedb": "^1.8.3",
+    "@types/node": "^6.0.46"
+  }
 }
