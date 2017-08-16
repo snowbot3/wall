@@ -1,15 +1,19 @@
 {
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "removeComments": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,                                             
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true
-  }
+	"compilerOptions": {
+		"target": "es5",
+		"module": "commonjs",
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"typeRoots": [
+			"./node_modules/@types",
+			"./types/"
+		],
+		"removeComments": true,
+		"strict": true,
+		//"noImplicitAny": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true
+	}
 }

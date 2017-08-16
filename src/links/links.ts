@@ -1,28 +1,19 @@
-import * as Nedb from 'nedb'
+import WallDb from '../utils/database'
 
 interface WallLink {
 	text: string
 	href: string
 }
-interface DataStoreOptions {
-	filename?: string
-	autoload?: boolean
-	timestampData?: boolean
-}
-Nedb.DataStoeOptions = DataStoreOptions;
 
 class WallLinks {
-	private db: Nedb
+	private db: WallDb
 	constructor(filename?:string){
-		this.db = new Nedb({
-			filename: filename,
-			autoload: true,
-			timestampData: true
-		})
+		this.db = new WallDb(filename)
 	}
-	getLinks(filter:string,start:number) : WallLink[] {
-		return this.db.find()
+	getLinks(filter:string) : WallLink[] {
+		return this.db.all()
 	}
 }
 
 export default new WallLink()
+
