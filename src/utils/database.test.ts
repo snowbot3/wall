@@ -1,10 +1,7 @@
-import WallLinks from './links'
+import WallDb from './database'
 import { expect } from 'chai'
 
-describe('WallLinks',()=>{
-	before(()=>{
-		// need mocking...
-	});
+describe('WallDb',()=>{
 	it('find all empty',async ()=>{
 		const db = new WallDb();
 		expect(await db.find()).deep.equal([]);

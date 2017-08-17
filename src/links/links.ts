@@ -7,13 +7,13 @@ interface WallLink {
 
 class WallLinks {
 	private db: WallDb
-	constructor(filename?:string){
-		this.db = new WallDb(filename)
+	constructor(){
+		this.db = new WallDb('aTestNameToSeeWhatHappens')
 	}
-	getLinks(filter:string) : WallLink[] {
-		return this.db.all()
+	getLinks() : Promise<WallLink[]> {
+		return this.db.find()
 	}
 }
 
-export default new WallLink()
+export default new WallLinks()
 
