@@ -10,7 +10,7 @@
 	"disabled-scripts": {
 		"test": "npm run test:wall && npm run test:site",
 		"test:wall": "cd wall; qunit",
-		"test:site": "cd site; qunit",
+		"test:site": "cd site; qunit"
 	},
 	"author": "",
 	"license": "ISC",
