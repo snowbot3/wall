@@ -1,13 +1,13 @@
-/** wall-func **/
+/** wall-args **/
 
-import { is as isType } from './type.mjs';
+import * as wall_type from './type.mjs';
 
 /**
  * original source: https://davidwalsh.name/javascript-arguments
  *  had to modify for anonymous functions.
 **/
-export function argNames(func) {
-	if (!isType(Function, func)) {
+export function names(func) {
+	if (!wall_type.is(Function, func)) {
 		throw new Error('wall-func: argNames: bad argument');
 	}
 	let fnStr = func.toString(); // .replace(/[ \t\r\n]+/g, ' ');
@@ -31,7 +31,7 @@ export function argNames(func) {
 }
 
 /* Designed to use with argNames */
-export function argMap(names, obj, backup, that) {
+export function map(names, obj, backup, that) {
 	return names.map(function(name){
 		if (name in obj) {
 			let arg = obj[name];

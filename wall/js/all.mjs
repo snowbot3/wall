@@ -3,4 +3,12 @@ export * as type from './type.mjs';
 export * as func from './func.mjs';
 export { elem } from './elem.mjs';
 export { dom } from './dom.mjs';
-export { css } from './css.mjs'; 
+
+import * as wall_css from './css.mjs';
+function css(...params) {
+    wall_css.css(...params);
+}
+for (let key in wall_css) {
+    css[key] = wall_css[key];
+}
+export { css };

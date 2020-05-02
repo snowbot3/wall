@@ -1,9 +1,10 @@
-/** wall-func **/
+/** wall-args **/
 
-import {
-	argNames,
-	argMap,
-} from '../js/func.mjs';
+import * as wall_args from '../js/args.mjs';
+/*import {
+	names as argNames,
+	map as argMap,
+} from '../js/args.mjs';*/
 
 function fnArg0() {}
 function fnArg1(a) {}
@@ -12,13 +13,13 @@ function fnArgRest(...rest) {}
 const fnLambda = (l,a,m,b)=>l+a+m+b;
 const fnLamb = da=>da+da;
 
-QUnit.module('func');
+QUnit.module('args');
 
 const json = obj=>JSON.stringify(obj);
 
-QUnit.test('argNames', function(assert) {
+QUnit.test('names', function(assert) {
 	function check(func, names) {
-		assert.deepEqual(argNames(func), names,
+		assert.deepEqual(wall_args.names(func), names,
 			`${func.name} args == ${json(names)}`);
 	}
 	check(fnArg0, []);
@@ -42,7 +43,7 @@ QUnit.test('argNames', function(assert) {
 // args = argMap(names, {}, function(){
 //   // fall back function...
 // });
-QUnit.test('argMap', function(assert) {
+QUnit.test('map', function(assert) {
 	function fnTest(val) {
 		return val + (++fnTest.count);
 	}
@@ -53,12 +54,12 @@ QUnit.test('argMap', function(assert) {
 		c: ['cd','dc'],
 		d: fnTest
 	};
-	const res1 = argMap(['a','b'], obj);
+	const res1 = wall_args.map(['a','b'], obj);
 	assert.deepEqual( res1, [
 		'aaa', 222
 	], '[a,b]');
 	
-	const res2 = argMap(['c','d'], obj);
+	const res2 = wall_args.map(['c','d'], obj);
 	assert.deepEqual(res2, [
 		['cd','dc'],
 		res2[1] // fnArg0.bind(...) not testable with equals
@@ -68,7 +69,7 @@ QUnit.test('argMap', function(assert) {
 	assert.equal( fnTest('b'), 'b2' );
 	assert.equal( res2[1]('c'), 'c3' );
 
-	const res3 = argMap(['e','f'], obj, (name)=>name);
+	const res3 = wall_args.map(['e','f'], obj, (name)=>name);
 	assert.deepEqual(res3, [
 		'e', 'f'
 	], '');

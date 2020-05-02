@@ -1,13 +1,14 @@
 /** wall-elem **/
 
-import { is as isType, isSimpleObject, run as typeRun } from './type.mjs';
+//import { is as isType, isSimpleObject, run as typeRun } from './type.mjs';
+import * as wall_type from './type.mjs';
 
 export class WallElem {
     constructor(node) {
         this.elem = node;
     }
     _appendSingle(...args) {
-        typeRun(this, args,
+        wall_type.run(this, args,
             [WallElem], function(elem) {
                 this.elem.appendChild(elem.elem);
             },
@@ -32,7 +33,7 @@ export class WallElem {
     }
     // for [String, Object] the prop settings should be recursive
     prop(...args) {
-        return typeRun(this, args,
+        return wall_type.run(this, args,
             [String], function(key) {
                 return this.elem[key];
             },
@@ -44,29 +45,35 @@ export class WallElem {
             });
     }
     get text() {
-        return this.elem.innerText;
+        return this.elem.textContent;
     }
     set text(val) {
-        this.elem.innerText = val;
+        this.elem.textContent = val;
     }
     query(selector) {
         const list = this.elem.querySelectorAll(selector);
         return Array.prototype.map.call(list, (el)=>new WallElem(el));
     }
+    remove() {
+        return this.elem.remove();
+    }
+    comp() {
+        return window.getComputedStyle(this.elem);
+    }
 }
 
 export function elem(node, props, ...children) {
-    if (isType(String, node)) {
+    if (wall_type.is(String, node)) {
         node = document.createElement(node);
-    } else if (isType(WallElem, node)) {
+    } else if (wall_type.is(WallElem, node)) {
         node = node.elem;
     }
-    if (!isType(Node, node)) {
+    if (!wall_type.is(Node, node)) {
         throw new Error('not allowed argument types');
     }
     const elem = new WallElem(node);
     if (props) {
-        if (isSimpleObject(props)) {
+        if (wall_type.isSimpleObject(props)) {
             elem.props(props);
         } else {
             children.unshift(props);

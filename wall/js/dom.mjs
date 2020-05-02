@@ -1,6 +1,6 @@
 /** wall-dom **/
 
-import { argNames } from './func.mjs';
+import * as args from './args.mjs';
 import { elem } from './elem.mjs';
 
 function convertCamelToDash(camel) {
@@ -9,7 +9,7 @@ function convertCamelToDash(camel) {
 
 // element templating
 export function dom(func) {
-    const names = argNames(func);
+    const names = args.names(func);
     const args = names.map(function(name) {
         name = convertCamelToDash(name);
         return elem.bind(this, name);
