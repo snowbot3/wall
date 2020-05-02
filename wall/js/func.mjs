@@ -1,6 +1,6 @@
 /** wall-func **/
 
-import { isType } from './type.mjs';
+import { is as isType } from './type.mjs';
 
 /**
  * original source: https://davidwalsh.name/javascript-arguments
