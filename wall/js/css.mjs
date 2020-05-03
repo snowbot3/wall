@@ -3,14 +3,13 @@
 class WallSheet {
     #elem;
     constructor() {
-        this.elem = document.createElement('style');
-        document.head.appendChild(this.elem);
+        this.#elem = document.createElement('style');
+        document.head.appendChild(this.#elem);
     }
     get sheet() {
-        return this.elem.sheet;
+        return this.#elem.sheet;
     }
     insert(data, index) {
-        console.log(this.sheet);
         index = index || this.sheet.cssRules.length;
         this.sheet.insertRule(data, index);
     }
@@ -19,10 +18,10 @@ class WallSheet {
     }
     // mimic the DomStyleElement
     get disabled() {
-        return this.elem.disabled;
+        return this.#elem.disabled;
     }
     set disabled(bool) {
-        this.elem.disabled = bool;
+        this.#elem.disabled = bool;
     }
     // alternative
     enable() {
