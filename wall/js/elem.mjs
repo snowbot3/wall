@@ -37,7 +37,7 @@ export class WallElem {
             [String], function(key) {
                 return this.elem[key];
             },
-            [String, String], function(key, val) {
+            [String, 'any'], function(key, val) {
                 this.elem[key] = val;
             },
             function(arg){

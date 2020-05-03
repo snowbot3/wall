@@ -8,44 +8,49 @@ function ExFn(){}
 class ExCl{ constructor(){} }
 
 QUnit.test('is', function(assert) {
-	function passIsType(val, ...types) {
-		types.forEach(function(type) {
+	// Trying to figure out a way to turn this information into a table.
+	function single(val, type, bool) {
+		if (bool) {
 			assert.ok( wall_type.is(type, val), `(${val})<${typeof val}> is ${type}` );
-		});
-	}
-	function failIsType(val, ...types) {
-		types.forEach(function(type) {
+		} else {
 			assert.notOk( wall_type.is(type, val), `(${val})<${typeof val}> is Not ${type}` );
-		});
+		}
 	}
-	passIsType('a', String);
-	failIsType('a', Number, Boolean, Object);
-	passIsType(2, Number);
-	failIsType(2, String, Boolean, Object);
-	passIsType(true, Boolean);
-	failIsType(true, String, Number, Object);
-	
-	passIsType([], Array, Object); // Do I want Array as Object?
-	failIsType([], String, Number, Boolean, ExCl, ExFn);
-	passIsType({}, Object);
-	failIsType({}, String, Number, Boolean, Array, ExCl, ExFn);
+	const objTypes = {
+		'S': String,
+		'N': Number,
+		'B': Boolean,
+		'O': Object,
+		'F': Function,
+		'A': Array,
+		's': 'string',
+		'n': 'number',
+		'b': 'boolean',
+		'o': 'object',
+		'f': 'function',
+		'X': ExCl,
+		'x': ExFn,
+		'z': 'simple' // like 'any' this is special for simple object
+	};
+	function check(value, types) {
+		single(value, 'any', true); // should always be true
+		for (let key in objTypes) {
+			single(value, objTypes[key], (types.indexOf(key)>-1));
+		}
+	}
+	check('a', 'Ss'); // assume all not listed should be false
+	check(2, 'Nn');
+	check(true, 'Bb');
+	check([], 'AOo');
+	check({}, 'Ooz'); // only 1 counts as simple
+	check(ExFn, 'FOf');
+	check(ExCl, 'FOf');
+	check(new ExCl, 'XOo');
+	check(new ExFn, 'xOo');
+	check(undefined, '');
+	check(null, 'o');
 
-	passIsType(ExFn, Function, Object); // Do I want Function as Object?
-	failIsType(ExFn, String, Number, Boolean, Array, ExCl, ExFn);
-	passIsType(ExCl, Function, Object);
-	failIsType(ExCl, String, Number, Boolean, Array, ExCl, ExFn);
-	
-	const objCl = new ExCl();
-	passIsType(objCl, ExCl, Object);
-	failIsType(objCl, String, Number, Boolean, Array, ExFn);
-	const objFn = new ExFn();
-	passIsType(objFn, ExFn, Object);
-	failIsType(objFn, String, Number, Boolean, Array, ExCl);
-	
-	failIsType(undefined, Object);
-	failIsType(null, Object);
-
-	assert.equal(assert.test.assertions.length, 58, 'final count');
+	assert.equal(assert.test.assertions.length, 11 * 15, 'final count');
 });
 
 QUnit.test('isSimpleObject', function(assert) {

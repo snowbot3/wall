@@ -9,6 +9,16 @@ export function is(type, value) {
 		if (typetype !== 'object') {
 			return (typetype === typeof value);
 		}
+	} else if (typeof type === 'string') {
+		if (type === 'any') {
+			return true;
+		}
+		if (type === 'simple') {
+			return isSimpleObject(value);
+		}
+		if (typeof value === type) {
+			return true;
+		}
 	}
 	return false;
 }
