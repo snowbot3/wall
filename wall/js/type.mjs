@@ -14,20 +14,14 @@ export function is(type, value) {
 			return true;
 		}
 		if (type === 'simple') {
-			return isSimpleObject(value);
+			return (value instanceof Object
+				&& value.constructor == Object);
 		}
 		if (typeof value === type) {
 			return true;
 		}
 	}
 	return false;
-}
-
-export function isSimpleObject(value) {
-	return (
-		is(Object, value)
-		&& value.constructor == Object
-	);
 }
 
 export function name(val) {

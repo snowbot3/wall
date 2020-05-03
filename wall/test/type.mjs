@@ -53,15 +53,6 @@ QUnit.test('is', function(assert) {
 	assert.equal(assert.test.assertions.length, 11 * 15, 'final count');
 });
 
-QUnit.test('isSimpleObject', function(assert) {
-	[ {}, new Object() ].forEach(function(arg){
-		assert.ok( wall_type.isSimpleObject(arg), `(${arg})<${typeof arg}> is simple object` );
-	});
-	[ 'a', 2, true, [], new Array() ].forEach(function(arg){
-		assert.notOk( wall_type.isSimpleObject(arg), `(${arg})<${typeof arg}> is Not simple object` );
-	});
-});
-
 QUnit.test('name', function(assert) {
 	function check(val, tName) {
 		assert.equal( wall_type.name(val), tName, `(${val})<${typeof val}> type is "${tName}"` );

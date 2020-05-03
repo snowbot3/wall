@@ -73,7 +73,7 @@ export function elem(node, props, ...children) {
     }
     const elem = new WallElem(node);
     if (props) {
-        if (wall_type.isSimpleObject(props)) {
+        if (wall_type.is('simple', props)) {
             elem.props(props);
         } else {
             children.unshift(props);
