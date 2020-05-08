@@ -2,8 +2,18 @@
 
 class WallSheet {
     #elem;
-    constructor() {
-        this.#elem = document.createElement('style');
+    constructor(url) {
+        if (url) {
+            this.#elem = document.createElement('link');
+            Object.assign(this.#elem, {
+                href: url,
+                rel: 'stylesheet',
+                type: 'text/css',
+                media: 'all'
+            });
+        } else {
+            this.#elem = document.createElement('style');
+        }
         document.head.appendChild(this.#elem);
     }
     get sheet() {
@@ -15,6 +25,11 @@ class WallSheet {
     }
     css(...params) {
         params.forEach(this.insert, this);
+    }
+    clear() {
+        for (let i=this.sheet.cssRules.length-1; i>=0; i--) {
+            this.sheet.deleteRule(i);
+        }
     }
     // mimic the DomStyleElement
     get disabled() {
@@ -32,9 +47,8 @@ class WallSheet {
     }
 }
 
-export function sheet() {
-    const sheet = new WallSheet();
-    // sheet.apply(); // must be done in class constructor.
+export function sheet(url) {
+    const sheet = new WallSheet(url);
     return sheet;
 }
 
