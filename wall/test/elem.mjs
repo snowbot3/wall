@@ -34,4 +34,14 @@ QUnit.test('elem', function(assert) {
 	assert.equal(typeof s1, 'object', 's1 typeof object');
 	assert.ok(s1 instanceof WallElem, 's1 instanceof WallElem');
 	assert.equal(s1.text, 'World', 's1 text');
+
+	// multiple props and children
+	const a2 = elem('a', {id:'a2', className:'bad'}, {className:'a2c'}, 'Acd', 'Bef');
+	assert.equal(typeof a2, 'object', 'a2 typeof object');
+	assert.ok(a2 instanceof WallElem, 'a2 instanceof WallElem');
+	assert.equal(typeof a2.elem, 'object', 'a2.elem typeof');
+	assert.ok(a2.elem instanceof Element, 'a2.elem instanceof Element');
+	assert.equal(a2.prop('id'), 'a2', 'a2 prop id')
+	assert.equal(a2.prop('className'), 'a2c', 'a2 prop className')
+	assert.equal(a2.text, 'AcdBef', 'a2 text');
 });

@@ -62,7 +62,7 @@ export class WallElem {
     }
 }
 
-export function elem(node, props, ...children) {
+export function elem(node, ...params /*...props, ...children*/) {
     if (wall_type.is(String, node)) {
         node = document.createElement(node);
     } else if (wall_type.is(WallElem, node)) {
@@ -72,13 +72,9 @@ export function elem(node, props, ...children) {
         throw new Error('not allowed argument types');
     }
     const elem = new WallElem(node);
-    if (props) {
-        if (wall_type.is('simple', props)) {
-            elem.props(props);
-        } else {
-            children.unshift(props);
-        }
+    while (params.length > 0 && wall_type.is('simple', params[0])) {
+        elem.props(params.shift());
     }
-    elem.append(...children);
+    elem.append(...params);
     return elem;
 }
