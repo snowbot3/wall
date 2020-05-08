@@ -1,5 +1,6 @@
 
 import './test/type.mjs';
+import './test/func.mjs';
 import './test/args.mjs';
 import './test/elem.mjs';
 import './test/dom.mjs';
