@@ -16,7 +16,7 @@ QUnit.test('dom', function(assert) {
 		);
 	});
 	assert.equal( div.text, 'div 1div 2span 1', 'div full' );
-	assert.equal( div.query('span')[0].text, 'span 1', 'inside span' );
+	assert.equal( div.query('span').get(0).text, 'span 1', 'inside span' );
 
 	const custom = dom(function(testDomCustom) {
 		return testDomCustom('test');
