@@ -1,6 +1,6 @@
 /** wall-css **/
 
-import { css, sheet } from '../js/css.mjs';
+import { css, sheet, link } from '../js/css.mjs';
 
 QUnit.module('css');
 
@@ -56,4 +56,30 @@ QUnit.test('sheet', function(assert){
 	s2.disable();
 	compOut = window.getComputedStyle(outer);
 	assert.equal( compOut.border, '1px solid rgb(255, 0, 0)', '4 border disabled 1 sheet' );
+});
+
+QUnit.test('link', async function(assert){
+	const fixture = document.getElementById('qunit-fixture');
+	fixture.innerHTML = `
+		<div id="test-link-id">
+			<div class="test-link-class">child</div>
+		</div>
+	`;
+	const outer = fixture.querySelector('div#test-link-id');
+	let compOut = window.getComputedStyle(outer);
+	assert.equal( compOut.border, '0px none rgb(0, 0, 0)', '1 border before' );
+	
+	// url based on html file
+	const s1 = await link('/test/test.css');
+
+	compOut = window.getComputedStyle(outer);
+	assert.equal( compOut.border, '1px solid rgb(250, 128, 114)', '2 border 1 link' );
+	
+	s1.css('#test-link-id { border-color: blueviolet; }');
+	compOut = window.getComputedStyle(outer);
+	assert.equal( compOut.border, '1px solid rgb(138, 43, 226)', '3 border added 2 link' );
+
+	s1.disable();
+	compOut = window.getComputedStyle(outer);
+	assert.equal( compOut.border, '0px none rgb(0, 0, 0)', '4 border disabled 1 link' );
 });
