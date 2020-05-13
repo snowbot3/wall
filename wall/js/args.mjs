@@ -31,6 +31,7 @@ export function names(func) {
 }
 
 /* Designed to use with argNames */
+// might be shorter with the new Proxy
 export function map(names, obj, backup, that) {
 	return names.map(function(name){
 		if (name in obj) {
