@@ -17,7 +17,8 @@ export default function nav() {
 		return div(
 			div('Nav:'),
 			link('#', 'Home'),
-			link('#settings', 'Settings')
+			link('#settings', 'Settings'),
+			link('#clock', 'Clock'),
 		);
 	});
 }
