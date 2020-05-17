@@ -19,7 +19,7 @@ class Pager {
 			this.swap(this.#map[pid]);
 		} else {
 			try {
-				const pg = await import(`./page/${pid}.mjs`);
+				const pg = await import(`../page/${pid}.mjs`);
 				if (pg && pg.default) {
 					this.#map[pid] = pg;
 					this.swap(pg);

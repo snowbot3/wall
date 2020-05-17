@@ -1,1 +1,3 @@
 # wall
+
+In a world with limited less possibilities, a lone wolf programming language stood out to become the most reliable language for scripting web design.  As usual the individual that stands the tallest to meet the needs of the many is also the most disliked and rejected.  But refusses to stay down!  As the youth of web development attempts to destroy the old ways in order to recreate the world with their own foolish ideas, one lone wolf programming language still stands in their way.  JavaScript.  And so does reality. Sites can be created just as beautiful, large, and testable without webpack or babel or angular, etc...
