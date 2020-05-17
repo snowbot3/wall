@@ -7,9 +7,9 @@ export { dom } from './dom.mjs';
 
 import * as wall_css from './css.mjs';
 function css(...params) {
-    wall_css.css(...params);
+	wall_css.css(...params);
 }
 for (let key in wall_css) {
-    css[key] = wall_css[key];
+	css[key] = wall_css[key];
 }
 export { css };

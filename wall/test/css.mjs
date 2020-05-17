@@ -4,7 +4,8 @@ import { css, sheet, link } from '../js/css.mjs';
 
 QUnit.module('css');
 
-const wait = ms => new Promise(r => setTimeout(r, ms));
+// not currently used, because use was removed.
+// const wait = ms => new Promise(r => setTimeout(r, ms));
 
 QUnit.test('css', function(assert) {
 	const fixture = document.getElementById('qunit-fixture');
