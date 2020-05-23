@@ -2,6 +2,7 @@
 
 //import { is as isType, isSimpleObject, run as typeRun } from './type.mjs';
 import * as wall_type from './type.mjs';
+import tmplProps from './props.mjs';
 
 export class WallElem {
 	constructor(node) {
@@ -41,6 +42,8 @@ export class WallElem {
 				return this.elem[key];
 			},
 			[String, 'any'], function(key, val) {
+				// make a map when more are needed
+				if ( key == 'class' ) { key = 'className'; }
 				this.elem[key] = val;
 			},
 			function(arg){
@@ -84,14 +87,31 @@ export class WallElemList extends Array {
 	// forEachW(function(wallelem, index, array, elem){});
 }
 
+function isTagTmpl(param) {
+	return (
+		param instanceof Array
+		&& param.raw instanceof Array
+	);
+}
+
+function elemTagTmplBind(...params) {
+	const tind = params.findIndex(isTagTmpl, 1);
+	const props = tmplProps(...params.splice(tind));
+	return elem.bind(this, ...params, props); // stacking binds?
+}
+
 export function elem(node, ...params /*...props, ...children*/) {
+	if (params.some(isTagTmpl)) {
+		return elemTagTmplBind(node, ...params);
+	}
 	if (wall_type.is(String, node)) {
 		node = document.createElement(node);
 	} else if (wall_type.is(WallElem, node)) {
 		node = node.elem;
 	}
 	if (!wall_type.is(Node, node)) {
-		throw new Error('not allowed argument types');
+		console.log([node, ...params]);
+		throw new Error('not allowed argument types: ' + typeof node);
 	}
 	const elem = new WallElem(node);
 	while (params.length > 0 && wall_type.is('simple', params[0])) {

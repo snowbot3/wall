@@ -5,7 +5,7 @@ import { dom } from '../js/dom.mjs';
 /** dom template utilities */
 QUnit.module('dom');
 
-QUnit.test('dom', function(assert) {
+QUnit.test('dom function', function(assert) {
 	const div = dom(function(div, span) {
 		return div(
 			div({className: 'test-dom-class'}, 'div 1'),
@@ -27,3 +27,4 @@ QUnit.test('dom', function(assert) {
 	const lamb = dom((div,span)=>div(span('cat'),span('pants')));
 	assert.equal( lamb.text, 'catpants', 'lambda' );
 });
+
