@@ -35,10 +35,12 @@ class Pager {
 export default function route(){
 	const el = elem('div', 'Loading');
 	const pager = new Pager(el);
-	window.addEventListener('hashchange', function(){
+	function onhash(){
 		let hash = window.location.hash;
 		if (hash[0] == '#') { hash = hash.slice(1); }
 		pager.load(hash);
-	});
+	};
+	window.addEventListener('hashchange', onhash);
+	setTimeout(onhash, 1);
 	return el;
 }
