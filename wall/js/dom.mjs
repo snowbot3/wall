@@ -3,15 +3,40 @@
 import * as wall_args from './args.mjs';
 import * as conv from './conv.mjs';
 import { elem } from './elem.mjs';
+import * as type from './type.mjs';
 
 // element templating
-export function dom(func) {
-	const names = wall_args.names(func);
+export function dom(...params) {
+	let names = [];
+	let cb;
+	while(params.length > 0) {
+		if (type.is(String, params[0])) {
+			names.push(params.shift());
+		} else if (type.is(Array, params[0])) {
+			params.forEach(val=>{if(val instanceof String){
+				names.push(val);
+			}});
+		} else if (type.is(Function,params[0])) {
+			cb = params[0];
+			break;
+		} else {
+			throw new Error('wall.dom: unknown param type: ' + typeof params[0]);
+		}
+	}
+	if (cb && names.length == 0) {
+		names = wall_args.names(cb);
+	}
 	const args = names.map(function(name) {
 		name = conv.camel2dash(name);
 		return elem.bind(this, name);
 	}, this);
-	return func.apply(this, args);
+	if (cb) {
+		return cb.apply(this, args);
+	}
+	if (args.length == 1) {
+		return args[0];
+	}
+	return args;
 }
 
 // dom ( func ) :: return func results
