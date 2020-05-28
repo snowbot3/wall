@@ -18,15 +18,15 @@ class Pager {
 		if (pid in this.#map) {
 			this.swap(this.#map[pid]);
 		} else {
-			try {
+			//try {
 				const pg = await import(`../page/${pid}.mjs`);
 				if (pg && pg.default) {
 					this.#map[pid] = pg;
 					this.swap(pg);
 				}
-			} catch(er) {
-				console.error('Pager.load ', er);
-			}
+			//} catch(er) {
+			//	console.error('Pager.load ', er);
+			//}
 		}
 	}
 }

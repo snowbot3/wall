@@ -19,6 +19,7 @@ export default function nav() {
 			link('#', 'Home'),
 			link('#settings', 'Settings'),
 			link('#clock', 'Clock'),
+			link('#tiles', 'Tiles'),
 		);
 	});
 }

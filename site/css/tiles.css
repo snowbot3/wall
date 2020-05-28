@@ -1,0 +1,102 @@
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translate(0px, 20px);
+	}
+	to {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+@keyframes fadeInUpOffset {
+	from {
+		opacity: 0;
+		transform: translate(5px, 20px);
+	}
+	to {
+		opacity: 1;
+		transform: translate(0, 0);
+	}
+}
+@keyframes fadeInSkew {
+	from {
+		opacity: 0;
+		transform: translate(10px, 10px) skew(-10deg, 10deg)
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+div.tile-outer {
+	position: relative;
+}
+div.tile-controls {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	background: white;
+	padding: 4px;
+	z-index: 1;
+}
+div.tile-controls >a {
+	display: inline-block;
+	border: 1px solid grey;
+	padding: 1px;
+	margin: 1px;
+}
+
+div.tile-grid {
+	padding-bottom: 200px;
+}
+
+span.tile {
+	display: inline-block;
+	vertical-align: top;
+	box-sizing: border-box;
+	width: 100px; height: 100px;
+	background: lightgrey;
+	animation-duration: 700ms;
+}
+
+span.tile.animenone {
+	animation: none 0s;
+}
+
+span.tile.animefadein {
+	animation-name: fadeIn;
+}
+
+span.tile.animefadeup {
+	animation-name: fadeInUp;
+}
+
+span.tile.animeupoff {
+	animation-name: fadeInUpOffset;
+}
+
+span.tile.animeskew {
+	animation-name: fadeInSkew;
+}
+
+span.tile.hide {
+	opacity: 0;
+	animation: none 0s;
+}
+
+/*span.tile:nth-child(3n+2) {
+	background-color: light;
+}
+/*
+span.tile:nth-child(3n+3) {
+	background-color: lightgoldenrodyellow;
+}*/
