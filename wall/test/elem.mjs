@@ -13,7 +13,7 @@ QUnit.test('elem', function(assert) {
 	assert.ok(a1 instanceof WallElem, 'a1 instanceof WallElem');
 	assert.equal(typeof a1.elem, 'object', 'a1.elem typeof');
 	assert.ok(a1.elem instanceof Element, 'a1.elem instanceof Element');
-	assert.equal(a1.prop('href'), '' + location.href + '#', 'a1 prop href')
+	assert.equal(a1.prop('href'), '' + location.href + '#', 'a1 prop href');
 	assert.equal(a1.text, 'anchor link', 'a1 text');
 
 	const div = document.createElement('div');
@@ -24,7 +24,7 @@ QUnit.test('elem', function(assert) {
 	assert.ok(d1 instanceof WallElem, 'd1 instanceof WallElem');
 	assert.equal(typeof d1.elem, 'object', 'd1.elem typeof');
 	assert.ok(d1.elem instanceof Element, 'd1.elem instanceof Element');
-	assert.equal(d1.prop('className'), 'example', 'd1 prop className')
+	assert.equal(d1.prop('className'), 'example', 'd1 prop className');
 	assert.equal(d1.text, 'Hello, World!!', 'd1 text');
 
 	const sar = d1.query('span');
@@ -50,8 +50,8 @@ QUnit.test('elem', function(assert) {
 	assert.ok(a2 instanceof WallElem, 'a2 instanceof WallElem');
 	assert.equal(typeof a2.elem, 'object', 'a2.elem typeof');
 	assert.ok(a2.elem instanceof Element, 'a2.elem instanceof Element');
-	assert.equal(a2.prop('id'), 'a2', 'a2 prop id')
-	assert.equal(a2.prop('className'), 'a2c', 'a2 prop className')
+	assert.equal(a2.prop('id'), 'a2', 'a2 prop id');
+	assert.equal(a2.prop('className'), 'a2c', 'a2 prop className');
 	assert.equal(a2.text, 'AcdBef', 'a2 text');
 });
 
@@ -62,7 +62,7 @@ QUnit.test('elem bind props', function(assert) {
 	assert.ok(a1 instanceof WallElem, 'a1 instanceof WallElem');
 	assert.equal(typeof a1.elem, 'object', 'a1.elem typeof');
 	assert.ok(a1.elem instanceof Element, 'a1.elem instanceof Element');
-	assert.equal(a1.prop('href'), '' + location.href + '#', 'a1 prop href')
+	assert.equal(a1.prop('href'), '' + location.href + '#', 'a1 prop href');
 	assert.equal(a1.text, 'anchor link', 'a1 text');
 
 	const a2 = a`className=a2p href=#`('anchor 2');
@@ -70,8 +70,8 @@ QUnit.test('elem bind props', function(assert) {
 	assert.ok(a2 instanceof WallElem, 'a2 instanceof WallElem');
 	assert.equal(typeof a2.elem, 'object', 'a2.elem typeof');
 	assert.ok(a2.elem instanceof Element, 'a2.elem instanceof Element');
-	assert.equal(a2.prop('href'), '' + location.href + '#', 'a2 prop href')
-	assert.equal(a2.prop('className'), 'a2p', 'a2 prop class name')
+	assert.equal(a2.prop('href'), '' + location.href + '#', 'a2 prop href');
+	assert.equal(a2.prop('className'), 'a2p', 'a2 prop class name');
 	assert.equal(a2.text, 'anchor 2', 'a2 text');
 
 	const a3 = a`className=bad href=#``class=a3p`('anchor 3'); // stackable?!
@@ -79,7 +79,7 @@ QUnit.test('elem bind props', function(assert) {
 	assert.ok(a3 instanceof WallElem, 'a3 instanceof WallElem');
 	assert.equal(typeof a3.elem, 'object', 'a3.elem typeof');
 	assert.ok(a3.elem instanceof Element, 'a3.elem instanceof Element');
-	assert.equal(a3.prop('href'), '' + location.href + '#', 'a3 prop href')
-	assert.equal(a3.prop('className'), 'a3p', 'a2 prop class name')
+	assert.equal(a3.prop('href'), '' + location.href + '#', 'a3 prop href');
+	assert.equal(a3.prop('className'), 'a3p', 'a2 prop class name');
 	assert.equal(a3.text, 'anchor 3', 'a3 text');
 });

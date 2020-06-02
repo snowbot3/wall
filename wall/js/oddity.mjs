@@ -1,4 +1,5 @@
-/** wall-func **/
+/** wall-oddity **/
+// odd utility functions
 
 export function one(fn) {
 	let ran = false, res;
@@ -9,4 +10,11 @@ export function one(fn) {
 		}
 		return res;
 	};
+}
+
+export function capitalize(str) {
+	return (
+		str.charAt(0).toUpperCase()
+		+ str.slice(1)
+	);
 }

@@ -6,6 +6,15 @@ import tmplProps from './props.mjs';
 
 export class WallElem {
 	constructor(node) {
+		if (wall_type.is(String, node)) {
+			node = document.createElement(node);
+		} else if (wall_type.is(WallElem, node)) {
+			node = node.elem;
+		}
+		if (!wall_type.is(Node, node)) {
+			console.log([node, ...params]);
+			throw new Error('not allowed argument types: ' + typeof node);
+		}
 		this.elem = node;
 	}
 	_appendSingle(...args) {
@@ -36,6 +45,7 @@ export class WallElem {
 	// I would like 2 specials (so far) 'on' and 'data'
 	// onclick vs data-header? but data-header requires quotes...
 	// what about camel? onClick dataHeaderTitle?
+	// does not handle custom events.
 	prop(...args) {
 		return wall_type.run(this, args,
 			[String], function(key) {
@@ -56,12 +66,15 @@ export class WallElem {
 	set text(val) {
 		this.elem.textContent = val;
 	}
+	clear() {
+		this.elem.innerHTML = ''; // fasts tested!
+	}
 	query(selector) {
 		const list = this.elem.querySelectorAll(selector);
 		//return Array.prototype.map.call(list, (el)=>new WallElem(el));
 		return new WallElemList(list);
 	}
-	// queryOne
+	// queryOne?
 	get kids() {
 		return new WallElemList(this.elem.children);
 	}
@@ -71,7 +84,29 @@ export class WallElem {
 	comp() {
 		return window.getComputedStyle(this.elem);
 	}
+	on(evname, evfn, props) {
+		this.elem.addEventListener(evname, evfn.bind(this), props);
+	}
+	fire(evname, detail) {
+		const ev = new CustomEvent(evname, {
+			//bubbles: true,
+			detail: detail || {}
+		});
+		return this.elem.dispatchEvent(ev);
+	}
 }
+
+/*
+class AsyncEventTarget {
+	constructor() {
+		this.events = {};
+	}
+	on(evname, evfn) {
+		// what if async functions are bound on 3 children elements?
+		// but is fired from here...
+	}
+}
+*/
 
 export class WallElemList extends Array {
 	constructor(elems) {
@@ -82,6 +117,13 @@ export class WallElemList extends Array {
 	}
 	get(index) {
 		return new WallElem(this[index]);
+	}
+	each(fn, ...params) {
+		const list = this;
+		return this.forEach(function(node, ind, arr){
+			const elem = list.get(ind);
+			fn.call(elem, elem, ind, arr);
+		}, ...params);
 	}
 	// forEach(function(value, index, array){});
 	// forEachW(function(wallelem, index, array, elem){});
@@ -103,15 +145,6 @@ function elemTagTmplBind(...params) {
 export function elem(node, ...params /*...props, ...children*/) {
 	if (params.some(isTagTmpl)) {
 		return elemTagTmplBind(node, ...params);
-	}
-	if (wall_type.is(String, node)) {
-		node = document.createElement(node);
-	} else if (wall_type.is(WallElem, node)) {
-		node = node.elem;
-	}
-	if (!wall_type.is(Node, node)) {
-		console.log([node, ...params]);
-		throw new Error('not allowed argument types: ' + typeof node);
 	}
 	const elem = new WallElem(node);
 	while (params.length > 0 && wall_type.is('simple', params[0])) {

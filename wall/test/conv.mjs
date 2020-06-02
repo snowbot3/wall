@@ -1,4 +1,4 @@
-/** wall-func **/
+/** wall-conv **/
 
 import * as wall_conv from '../js/conv.mjs';
 

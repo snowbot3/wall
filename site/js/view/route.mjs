@@ -1,46 +1,16 @@
 /** Route **/
 
-import { elem } from '../wall/all.mjs';
+import { elem, frame as wall_frame } from '../wall/all.mjs';
 
-class Pager {
-	#par;
-	#map;
-	constructor(par) {
-		this.#par = par;
-		this.#map = {};
-	}
-	swap(pg) {
-		this.#par.text = '';
-		this.#par.append(pg.default());
-	}
-	async load(pid) {
-		pid = pid || 'home';
-		if (pid in this.#map) {
-			this.swap(this.#map[pid]);
-		} else {
-			//try {
-				const pg = await import(`../page/${pid}.mjs`);
-				if (pg && pg.default) {
-					this.#map[pid] = pg;
-					this.swap(pg);
-				}
-			//} catch(er) {
-			//	console.error('Pager.load ', er);
-			//}
-		}
-	}
+function hashToPage(hash) {
+	if (hash[0] == '#') { hash = hash.slice(1); }
+	return `../page/${hash || 'home'}.mjs`;
 }
-//	'': './home.mjs', 'settings': './settings.mjs' };
 
 export default function route(){
-	const el = elem('div', 'Loading');
-	const pager = new Pager(el);
-	function onhash(){
-		let hash = window.location.hash;
-		if (hash[0] == '#') { hash = hash.slice(1); }
-		pager.load(hash);
-	};
-	window.addEventListener('hashchange', onhash);
-	setTimeout(onhash, 1);
-	return el;
+	const frm = wall_frame();
+	frm.onhash(function(ev) {
+		frm.load(import(hashToPage(window.location.hash)));
+	}, true);
+	return frm;
 }

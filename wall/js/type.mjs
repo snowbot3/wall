@@ -1,5 +1,7 @@
 /** wall-type **/
 
+import { capitalize } from './oddity.mjs';
+
 export function is(type, value) {
 	if (typeof type === 'function') {
 		if (value instanceof type) {
@@ -30,10 +32,7 @@ export function name(val) {
 	}
 	let type = typeof val;
 	if (type !== 'object') {
-		return (
-			type.charAt(0).toUpperCase()
-			+ type.slice(1)
-		);
+		return capitalize(type);
 	}
 	return val.constructor.name;
 }
