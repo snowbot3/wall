@@ -1,73 +1,40 @@
 /** Tiles page */
 
-import { css, dom, elem } from '../wall/all.mjs';
+import { css, dom } from '/js/wall/all.mjs';
+import GridConcept from './tiles/grid.mjs';
 
 css.link('./css/tiles.css').then(function(sheet){
 	// how many colors?
 	// color css function rgb(0-255,0-255,0-255);
 	const colors = [];
-	for (let i=0; i<18; i++) {
-		const red = i % 2;
-		const rRed = (i - red) / 2;
-		const green = rRed % 3;
-		const blue = (rRed - green) / 3;
-		const cRed = 127 + 128 * red;
-		const cGreen = 127 + 64 * green;
-		const cBlue = 127 + 64 * blue;
+	const dRed = 4;
+	const dGreen = 5;
+	const dBlue = 5;
+	for (let i=0; i<(dRed*dGreen*dBlue); i++) {
+		const red = i % dRed;
+		const rRed = (i - red) / dRed;
+		const green = rRed % dGreen;
+		const blue = (rRed - green) / dBlue;
+		const cRed = 127 + Math.floor(128 / (dRed - 1)) * red;
+		const cGreen = 127 + Math.floor(128 / (dGreen - 1)) * green;
+		const cBlue = 127 + Math.floor(128 / (dBlue - 1)) * blue;
 		if (cRed == cGreen && cRed == cBlue) { continue; }
 		colors.push(`rgb(${cRed},${cGreen},${cBlue})`);
 	}
+	colors.sort(()=>Math.random()*4-2); // lazy shuffle
 	console.log(colors);
 	// sheet.insert => sheet.elem.sheet.insertRule(rule, ind);
 	colors.forEach((color, ind, arr)=>sheet.insert(`
-		span.tile:nth-child(${arr.length+1}n+${ind+1}){
+		div.tile-outer span.tile:nth-child(${arr.length+1}n+${ind+1}){
 			background-color: ${color};
 		}
 	`));
 });
 
-class GridConcept {
-	constructor(){
-		this.elem = dom('div')`class=tile-grid`();
-	}
-	reset() {
-		this.elem.text = '';
-	}
-	addOne(anime) {
-		const count = this.elem.kids.length;
-		const kid = dom('span')`class='tile hide anime${anime}'`(count + 1);
-		this.elem.append(kid);
-		return kid;
-	}
-	fillRow(anime) {
-		const last = this.addOne(anime);
-		last.elem.classList.remove('hide');
-		const count = this.elem.query(':scope>span.tile').length;
-		const oComp = this.elem.comp();
-		const oWidth = parseInt(oComp.width);
-		const iWidth = parseInt(last.comp().width);
-		const full = (oWidth - (oWidth % iWidth)) / iWidth;
-		const space = full - count % full;
-		for (let i=0; i<space; i++) {
-			const kid = this.addOne(anime);
-			setTimeout(function(){
-				kid.elem.classList.remove('hide');
-			}, (80 * (i+1)));
-		}
-	}
-	fillPage(anime) {
-		const that = this;
-		for (let i=0; i<8; i++) {
-			setTimeout(function(){
-				that.fillRow(anime);
-			}, 400 * i);
-		}
-	}
-	//...Array.from({length:20},(v,k)=>span`class=tile`())
-}
+const grid = new GridConcept();
+const scroll = dom('div')`class=tile-scroll`();
 
-export default function() {
-	let grid = new GridConcept();
+export function side() {
 	function wrap(cmd, ...params) {
 		return function(ev){
 			ev.preventDefault();
@@ -75,27 +42,40 @@ export default function() {
 			return false;
 		}
 	}
+	let lastMethod;
+	function page(...params) {
+		if (params[0]) {
+			lastMethod = params;
+		}
+		return wrap('fillPage', ...params);
+	}
+	// this will duplicate every navigate the current way it is written...
+	window.addEventListener('scroll', function(ev){
+		if (lastMethod && grid.active == 0) {
+			const pos = scroll.elem.getBoundingClientRect();
+			if (pos.top < window.innerHeight) {
+				grid['fillPage']();
+			}
+		}
+	});
+	return dom((div,span,a)=>div`class=tile-controls`(
+		//a({ href: '#tiles', onclick: wrap('reset') }, 'Reset'),
+		div( a`href=#tiles onclick=${wrap('reset')}`('Reset') ),
+		div( a`href=#tiles onclick=${wrap('addOne')}`('Add 1') ),
+		div( a`href=#tiles onclick=${wrap('fillRow')}`('Fill Row') ),
+		div`style='display:inline-block;width:2em;height:2em;border-bottom:1px solid black;'`(' '),
+		div(' Fill Page::'),
+		div( a`href=#tiles onclick=${page('none', 0)}`('Quick') ),
+		div( a`href=#tiles onclick=${page('fadein')}`('Fade In') ),
+		div( a`href=#tiles onclick=${page('fadeup')}`('Fade Up') ),
+		div( a`href=#tiles onclick=${page('upoff')}`('Up Offset') ),
+		div( a`href=#tiles onclick=${page('skew')}`('Skew') ),
+		div( a`href=#tiles onclick=${page('puzzle')}`('Puzzle') )
+	));
+};
+export default function() {
 	return dom((div,span,a)=>div`class=tile-outer`(
-		div`class=tile-controls`(
-			//a({ href: '#tiles', onclick: wrap('reset') }, 'Reset'),
-			a`href=#tiles onclick=${wrap('reset')}`('Reset'),
-			' ',
-			a`href=#tiles onclick=${wrap('addOne')}`('Add 1'),
-			' ',
-			a`href=#tiles onclick=${wrap('fillRow')}`('Fill Row'),
-			' ',
-			span`style='display:inline-block;width:2em;'`(' '),
-			' Fill Page::',
-			a`href=#tiles onclick=${wrap('fillPage', 'none')}`('Quick'),
-			' ',
-			a`href=#tiles onclick=${wrap('fillPage', 'fadein')}`('Fade In'),
-			' ',
-			a`href=#tiles onclick=${wrap('fillPage', 'fadeup')}`('Fade Up'),
-			' ',
-			a`href=#tiles onclick=${wrap('fillPage', 'upoff')}`('Up Offset'),
-			' ',
-			a`href=#tiles onclick=${wrap('fillPage', 'skew')}`('Skew')
-		),
-		grid.elem
+		grid.elem,
+		scroll
 	));
 };
