@@ -4,24 +4,18 @@ export * as args from './args.mjs';
 export { elem } from './elem.mjs';
 export { dom } from './dom.mjs';
 
-// { frame, onhash } => frame.onhash
-export { default as frame } from './frame.mjs';
-
-export { default as page, EVLOAD, EVUNLOAD } from './page.mjs';
-/*import * as wall_page from './page.mjs';
-function page(...params) {
-	return wall_page.default(...params);
+function wrap(mod) {
+	function wrap(...params) {
+		return mod.default(...params);
+	}
+	Object.assign(wrap, mod);
+	return wrap;
 }
-for (let key in wall_page) {
-	page[key] = wall_page[key];
-}
-export { page };*/
 
 import * as wall_css from './css.mjs';
-function css(...params) {
-	return wall_css.css(...params);
-}
-for (let key in wall_css) {
-	css[key] = wall_css[key];
-}
-export { css };
+const css = wrap(wall_css);
+import * as wall_frame from './frame.mjs';
+const frame = wrap(wall_frame);
+import * as wall_page from './page.mjs';
+const page = wrap(wall_page); // EVLOAD, EVUNLOAD
+export { css, frame, page };
