@@ -2,32 +2,44 @@
  * App Site
  */
 
-import { css, dom, elem } from './wall/all.mjs';
-import elNav from './view/nav.mjs';
-import elRoute from './view/route.mjs';
+import { css, dom, elem, frame } from './wall/all.mjs';
+css.link('/css/global.css');
 
-css(`.l-outer {
-	display: grid;
-	height: 100%;
-	grid-template-columns: 100px auto;
-	grid-template-rows: auto;
-	grid-template-areas: "side main";
-}`, `.l-side {
-	display: block;
-	grid-area: side;
-}`, `.l-main {
-	display: block;
-	grid-area: main;
-}`);
+function link(url, text) {
+	return dom((div,a)=>div(
+		a`href=${url}`(text)
+	));
+}
+
+const frmSide = frame();
+const frmMain = frame();
+frame.onhash(async function(hash){
+	const mod = import(`./page/${hash || 'home'}.mjs`);
+	frmMain.load(mod); // mod.default
+	try {
+		await frmSide.load(mod, 'side');
+	} catch(e) {
+		frmSide.load(elem('div'));
+	}
+}, true);
 
 const body = elem(document.body);
-body.append(dom(function(div){
+body.append(dom(function(div, hr) {
 	return div`class=l-outer`(
 		div`class=l-side`(
-			elNav()
+			div`class=l-side-nav`(
+				div`style=margin-bottom:1em`(
+					div`class=bb`('Nav:'),
+					link('#', 'Home'),
+					link('#settings', 'Settings'),
+					link('#clock', 'Clock'),
+					link('#tiles', 'Tiles'),
+				),
+				frmSide
+			)
 		),
 		div`class=l-main`(
-			elRoute()
+			frmMain
 		)
 	);
 }));

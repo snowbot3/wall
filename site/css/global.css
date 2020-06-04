@@ -6,3 +6,42 @@ body {
 	height: 100%;
 	margin: 0;
 }
+
+.l-outer {
+	display: grid;
+	height: 100%;
+	grid-template-columns: 100px auto;
+	grid-template-rows: auto;
+	grid-template-areas: "side main";
+	transition: margin-left 100ms;
+}
+.l-side {
+	display: block;
+	grid-area: side;
+}
+.l-side-nav {
+	margin: 0.5em;
+	padding: 0.5em;
+	border: 2px solid black;
+	border-radius: 1em;
+	background: white;
+	transition: transform 100ms;
+}
+.l-main {
+	display: block;
+	grid-area: main;
+}
+
+@media only screen and (max-width: 600px) {
+	.l-outer {
+		margin-left: -85px;
+	}
+	.l-side-nav {
+		z-index: 2;
+	}
+	.l-side-nav:hover {
+		transform: translateX(70px);
+	}
+}
+
+.bb { border-bottom: 1px solid black; }
