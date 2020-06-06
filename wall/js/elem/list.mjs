@@ -20,3 +20,31 @@ export class WallElemList extends Array {
 	// forEach(function(value, index, array){});
 	// forEachW(function(wallelem, index, array, elem){});
 }
+
+/*
+	query(selector) {
+		const list = this.elem.querySelectorAll(selector);
+		//return Array.prototype.map.call(list, (el)=>new WallElem(el));
+		return new WallElemList(list);
+	}
+	// queryOne?
+	get kids() {
+		return new WallElemList(this.elem.children);
+	}
+*/
+
+/*WallElem.prototype.query = function query(selector) {
+	const list = this.elem.querySelectorAll(selector);
+	//return Array.prototype.map.call(list, (el)=>new WallElem(el));
+	return new WallElemList(list);
+};*/
+Reflect.set(WallElem.prototype, 'query', function query(selector) {
+	const list = this.elem.querySelectorAll(selector);
+	//return Array.prototype.map.call(list, (el)=>new WallElem(el));
+	return new WallElemList(list);
+});
+Reflect.defineProperty(WallElem.prototype, 'kids', {
+	get: function kids(){
+		return new WallElemList(this.elem.children);
+	}
+});

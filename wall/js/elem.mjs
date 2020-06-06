@@ -6,6 +6,7 @@ import tmplProps from './props.mjs';
 
 import { WallElem } from './elem/base.mjs';
 //import { WallElemList } from './elem/list.mjs';
+import './elem/list.mjs';
 import './elem/frame.mjs';
 
 export { WallElem } from './elem/base.mjs';

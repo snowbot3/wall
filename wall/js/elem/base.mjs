@@ -1,4 +1,4 @@
-import { WallElemList } from './list.mjs';
+//import { WallElemList } from './list.mjs';
 import * as wall_type from '../type.mjs';
 
 export class WallElem {
@@ -65,15 +65,7 @@ export class WallElem {
 	clear() {
 		this.elem.innerHTML = ''; // fasts tested!
 	}
-	query(selector) {
-		const list = this.elem.querySelectorAll(selector);
-		//return Array.prototype.map.call(list, (el)=>new WallElem(el));
-		return new WallElemList(list);
-	}
-	// queryOne?
-	get kids() {
-		return new WallElemList(this.elem.children);
-	}
+	/* * query was here * */
 	remove() {
 		return this.elem.remove();
 	}
