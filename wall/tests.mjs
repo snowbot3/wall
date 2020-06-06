@@ -7,4 +7,3 @@ import './test/args.mjs'; // requires type
 import './test/type.mjs'; // requires oddity
 import './test/elem.mjs'; // requires props, type
 import './test/dom.mjs'; // requires args, conv, elem, type
-import './test/frame.mjs'; // requires elem, oddity, page, type
