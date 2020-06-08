@@ -69,7 +69,7 @@ export class WallElem {
 	remove() {
 		return this.elem.remove();
 	}
-	comp() {
+	get comp() {
 		return window.getComputedStyle(this.elem);
 	}
 	on(evname, evfn, props) {
