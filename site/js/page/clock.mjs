@@ -1,6 +1,6 @@
 // clock
 import { format as df } from '/js/date.js';
-import { page } from '/js/wall/all.mjs';
+import { elem } from '/js/wall/all.mjs';
 
 const dfTime = df`h:mm:ss tt`;
 
@@ -30,7 +30,7 @@ class Clock {
 
 export default function settings() {
 	// this is not correct, page only takes 1 argument.
-	const el = page('div', 'Loading...');
+	const el = elem('div', 'Loading...');
 	const clock = new Clock(el);
 	return el;
 }
