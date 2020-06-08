@@ -60,6 +60,8 @@ export function side() {
 	});
 	return dom((div,span,a)=>div`class=tile-controls`(
 		//a({ href: '#tiles', onclick: wrap('reset') }, 'Reset'),
+		div`style='display:inline-block;width:2em;height:2em;border-bottom:1px solid black;'`(' '),
+		div(' Tile Base::'),
 		div( a`href=#tiles onclick=${wrap('reset')}`('Reset') ),
 		div( a`href=#tiles onclick=${wrap('addOne')}`('Add 1') ),
 		div( a`href=#tiles onclick=${wrap('fillRow')}`('Fill Row') ),
