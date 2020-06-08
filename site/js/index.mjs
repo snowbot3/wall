@@ -33,6 +33,7 @@ body.append(dom(function(div, hr) {
 					link('#', 'Home'),
 					link('#settings', 'Settings'),
 					link('#clock', 'Clock'),
+					link('#notes', 'Notes'),
 					link('#tiles', 'Tiles'),
 				),
 				frmSide
