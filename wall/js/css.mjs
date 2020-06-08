@@ -63,7 +63,7 @@ export function sheet() {
 }
 
 let globalSheet;
-export function css(...params) {
+export default function css(...params) {
 	if ( !globalSheet ) {
 		globalSheet = sheet();
 	}

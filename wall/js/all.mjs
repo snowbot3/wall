@@ -16,6 +16,4 @@ import * as wall_css from './css.mjs';
 const css = wrap(wall_css);
 import * as wall_frame from './frame.mjs';
 const frame = wrap(wall_frame);
-import * as wall_page from './page.mjs';
-const page = wrap(wall_page); // EVLOAD, EVUNLOAD
-export { css, frame, page };
+export { css, frame };
