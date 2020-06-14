@@ -1,6 +1,6 @@
 /** wall-css **/
 
-import { css, sheet, link } from '../js/css.mjs';
+import { default as css, sheet, link } from '../js/css.mjs';
 
 QUnit.module('css');
 

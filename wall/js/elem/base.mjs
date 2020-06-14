@@ -75,6 +75,7 @@ export class WallElem {
 	on(evname, evfn, props) {
 		this.elem.addEventListener(evname, evfn.bind(this), props);
 	}
+	// Which is better "fire" or "emit"?
 	fire(evname, detail) {
 		const ev = new CustomEvent(evname, {
 			//bubbles: true,

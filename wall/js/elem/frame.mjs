@@ -1,32 +1,18 @@
 import { WallElem } from './base.mjs';
+import { cycle } from '../oddity.mjs';
+import { name as typeName } from '../type.mjs';
 
-const EVCLASS = "wall-events";
-export const EVLOAD = 'WallElemLoad';
-export const EVUNLOAD = 'WallElemUnload';
+const EVCLASS = "WallLoad";
+export const EVLOAD = 'WallLoad';
+export const EVUNLOAD = 'WallUnload';
 
 Object.assign(WallElem.prototype, {
 	load: async function load(original, fnname) {
 		//const er = new Error();
-		let page = original;
-		while (page) { // I want a more generic concept for this.
-			if (page instanceof WallElem) {
-				break;
-			}
-			if (page instanceof Promise) {
-				page = await page;
-			} else if (page instanceof Node) {
-				page = new WallElem(page);
-			} else if (page instanceof Function) {
-				page = page();
-			} else if (page instanceof Object || typeof page === 'object') {
-				if (fnname === undefined) {
-					fnname = 'default';
-				}
-				page = page[fnname];
-			} else {
-				//console.log(er);
-				throw new Error('WallFrame: unsupported type: ' + typeName(page) + ' :: original: ' + typeName(original));
-			}
+		let page = cycle(original, fnname || 'default', true);
+		if (page instanceof Promise) { page = await page; }
+		if (page instanceof Node) {
+			page = new WallElem(page);
 		}
 		if (page instanceof WallElem) {
 			this.query('.' + EVCLASS).each(kid=>kid.fire(EVUNLOAD));
@@ -36,7 +22,7 @@ Object.assign(WallElem.prototype, {
 			page.query('.'+EVCLASS).each(el=>el.fire(EVLOAD));
 		} else {
 			//console.log(er);
-			throw new Error('WallFrame: unsupported type: ' + typeName(page) + ' :: original: ' + typeName(original));
+			throw new Error(`WallElem.load: unsupported type: ${typeName(page)} :: original: ${typeName(original)}`);
 		}
 	},
 	onload: function onload(fn) {
