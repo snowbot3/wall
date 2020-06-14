@@ -133,7 +133,7 @@ class NoteSystem {
 	}
 }
 
-export default function notes() {
+export function main() {
 	const notes = new NoteSystem();
 	return notes.outer;
 }

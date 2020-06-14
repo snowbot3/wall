@@ -38,7 +38,12 @@ export function side() {
 	function wrap(cmd, ...params) {
 		return function(ev){
 			ev.preventDefault();
-			grid[cmd](...params);
+			if (cmd == 'addOne') {
+				const rtn = grid[cmd](...params);
+				rtn.elem.classList.remove('hide');
+			} else {
+				grid[cmd](...params);
+			}
 			return false;
 		}
 	}

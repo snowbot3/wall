@@ -28,7 +28,7 @@ class Clock {
 	}
 }
 
-export default function settings() {
+export function main() {
 	// this is not correct, page only takes 1 argument.
 	const el = elem('div', 'Loading...');
 	const clock = new Clock(el);

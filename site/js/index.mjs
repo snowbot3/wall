@@ -15,7 +15,7 @@ const frmSide = frame();
 const frmMain = frame();
 frame.onhash(async function(hash){
 	const mod = import(`./page/${hash || 'home'}.mjs`);
-	frmMain.load(mod); // mod.default
+	frmMain.load(mod, 'main'); // mod.default
 	try {
 		await frmSide.load(mod, 'side');
 	} catch(e) {

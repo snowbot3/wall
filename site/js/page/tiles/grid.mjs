@@ -22,9 +22,9 @@ export default class GridConcept {
 		const last = this.addOne(anime);
 		last.elem.classList.remove('hide');
 		const count = this.elem.query(':scope>span.tile').length;
-		const oComp = this.elem.comp();
+		const oComp = this.elem.comp;
 		const oWidth = parseInt(oComp.width);
-		const iWidth = parseInt(last.comp().width);
+		const iWidth = parseInt(last.comp.width);
 		const full = (oWidth - (oWidth % iWidth)) / iWidth;
 		const space = full - count % full;
 		for (let i=0; i<space; i++) {

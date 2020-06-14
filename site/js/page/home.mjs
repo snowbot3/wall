@@ -4,6 +4,6 @@
 
 import { elem } from '/js/wall/all.mjs';
 
-export default function home() {
+export function main() {
 	return elem('div', 'Home placement');
 }
