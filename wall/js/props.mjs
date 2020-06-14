@@ -2,21 +2,23 @@
  * props tag tmpl
  */
 
+function isQuote(char) {
+	return char == '"' || char == "'";
+}
+
 function next_prop_value(tmpl, args, next) {
 	if (next === undefined) {
 		next = tmpl[0][0];
-		if (next == '"' || next == "'") {
+		if (isQuote(next)) {
 			tmpl[0] = tmpl[0].slice(1);
 		} else {
-			next = ' ';
+			next = /\s/;
 		}
 	}
-	let nind = tmpl[0].indexOf(next);
+	let nind = tmpl[0].search(next);
 	// what if end of template.
 	if (nind == -1) {
 		if (args.length > 0) {
-			// this should be more complex to allow objects to be passed through
-			// currently everything become a single string value.
 			const parts = [tmpl.shift(), args.shift(), next_prop_value(tmpl, args, next)];
 			if (parts[0] === '' && parts[2] === '') {
 				return parts[1]; // allows non-string
@@ -25,10 +27,10 @@ function next_prop_value(tmpl, args, next) {
 		}
 		nind = tmpl[0].length;
 	}
-	const dleg = next == ' ' ? 0 : 1;
+	const dleg = isQuote(next) ? 1 : 0;
 	const part = tmpl[0].slice(0, nind + dleg);
 	tmpl[0] = tmpl[0].slice(nind + dleg);
-	if (next != ' ') {
+	if (isQuote(next)) {
 		return part.slice(0, -1);
 	}
 	return part;
@@ -40,16 +42,24 @@ function safe_props(tmpl, args) {
 	// if raw.length == 0; then end
 	// if raw.length >= 1 && raw[0].length == 0; then end
 	while (tmpl.length > 0 && tmpl[0].length > 0) {
-		const ind = tmpl[0].indexOf('='); // class=cats 5
+		const ind = tmpl[0].search(/[=\s]/); // class=cats or checked
 		if (ind == -1) {
-			throw new Error('tmpl_props: bad format');
+			if (tmpl.length > 1) {
+				throw new Error('tmpl_props: bad format: ' + tmpl);
+			}
+			obj[tmpl.shift()] = true;
+		} else {
+			const key = tmpl[0].slice(0, ind); // 0 ~ 4 = clas
+			if (tmpl[0][ind] == '=') {
+				tmpl[0] = tmpl[0].slice(ind + 1);
+				const value = next_prop_value(tmpl, args);
+				obj[key] = value;
+			} else {
+				tmpl[0] = tmpl[0].slice(ind);
+				obj[key] = true;
+			}
+			tmpl[0] = tmpl[0].trimLeft();
 		}
-		//const key = tmpl[0].splice(0, ind).slice(0, -1);
-		const key = tmpl[0].slice(0, ind); // 0 ~ 4 = clas
-		tmpl[0] = tmpl[0].slice(ind + 1);
-		const value = next_prop_value(tmpl, args);
-		obj[key] = value;
-		tmpl[0] = tmpl[0].trimLeft();
 	}
 	return obj;
 }
