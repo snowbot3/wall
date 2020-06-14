@@ -1,4 +1,3 @@
-//import { WallElemList } from './list.mjs';
 import * as wall_type from '../type.mjs';
 
 export class WallElem {

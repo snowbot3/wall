@@ -5,7 +5,6 @@ import * as wall_type from './type.mjs';
 import tmplProps from './props.mjs';
 
 import { WallElem } from './elem/base.mjs';
-//import { WallElemList } from './elem/list.mjs';
 import './elem/list.mjs';
 import './elem/frame.mjs';
 

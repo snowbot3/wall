@@ -6,4 +6,7 @@ import './test/props.mjs';
 import './test/args.mjs'; // requires type
 import './test/type.mjs'; // requires oddity
 import './test/elem.mjs'; // requires props, type
+import './test/elem-base.mjs';
+import './test/elem-list.mjs';
+import './test/elem-frame.mjs';
 import './test/dom.mjs'; // requires args, conv, elem, type
