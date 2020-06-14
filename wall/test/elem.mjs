@@ -25,6 +25,19 @@ QUnit.test('elem(str)', function(assert) {
 	assert.equal(el.constructor, WallElem, 'elem(dom).constructor');
 	assert.equal(el.elem.tagName, 'DIV', 'elem(dom).elem.tagName');
 });
+QUnit.test('elem`tagName props`', function(assert){
+	const dt = elem`div class=turtle`;
+	const d1 = dt();
+	assert.equal(d1.elem.tagName, 'DIV', 'div class=turtle tagName');
+	assert.equal(d1.elem.className, 'turtle', 'div class=turtle className');
+	const sp = elem`span`;
+	const s1 = sp();
+	assert.equal(s1.elem.tagName, 'SPAN', 'span tagName');
+	assert.equal(s1.elem.className, '', 'span className');
+	const s2 = sp`class=s2`();
+	assert.equal(s2.elem.tagName, 'SPAN', 'span 2 tagName');
+	assert.equal(s2.elem.className, 's2', 'span 2 className');
+});
 QUnit.test('elem.bind(str)`prop tag temp`', function(assert) {
 	const a = elem.bind(this, 'a');
 	const a1 = a`href=#`;

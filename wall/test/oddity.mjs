@@ -31,3 +31,5 @@ QUnit.test('capitalize', function(assert) {
 	c('Abc','Abc');
 	c('ABC','ABC');
 });
+
+QUnit.skip('cycle', function(){});
