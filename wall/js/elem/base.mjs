@@ -62,7 +62,7 @@ export class WallElem {
 		this.elem.textContent = val;
 	}
 	clear() {
-		this.elem.innerHTML = ''; // fasts tested!
+		this.elem.innerHTML = ''; // fastest tested!
 	}
 	/* * query was here * */
 	remove() {

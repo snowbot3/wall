@@ -1,11 +1,8 @@
-/** wall-dom **/
+/** wall-doms **/
 /* concept change
-dom`div class=${cssClass1}`('children');
-dom('div class=staticClass', ...children); //?! I am thinking no...
-const tmp = dom`div class=sharedClass`;
-tmp`id=smart class+=${additionalClasses}`('text content');
-// they return DOMElement(s) instead of WallElements
-// shorthanding should be separate to allow tools like jquery.
+doms('tag1', 'tag2 class=blue', dom`tag3 class=${varClass}`, (t1,t2,t3)=>t1(
+	t2(), t3`id=specific`('cat')
+));
 */
 
 import * as wall_args from './args.mjs';
