@@ -11,7 +11,7 @@ import { elem } from './elem.mjs';
 import * as type from './type.mjs';
 
 // element templating
-export function dom(...params) {
+export function doms(...params) {
 	let names = [];
 	let cb;
 	while(params.length > 0) {
@@ -25,7 +25,7 @@ export function dom(...params) {
 			cb = params[0];
 			break;
 		} else {
-			throw new Error('wall.dom: unknown param type: ' + typeof params[0]);
+			throw new Error('wall.doms: unknown param type: ' + typeof params[0]);
 		}
 	}
 	if (cb && names.length == 0) {
@@ -44,13 +44,13 @@ export function dom(...params) {
 	return args;
 }
 
-// dom ( func ) :: return func results
-// dom ( [strings], func ) :: return func results
-// dom ( string, ...string ) :: elem bind?
+// doms ( func ) :: return func results
+// doms ( [strings], func ) :: return func results
+// doms ( string, ...string ) :: elem bind?
 
 /*
 
-var [ div, span ] = dom('div','span');
+var [ div, span ] = doms('div','span');
 body.append(
 	div({},
 		div({},
@@ -60,10 +60,10 @@ body.append(
 	)
 );
 
-var [ table, tr, td ] = dom(...'table,tr,td'.split(','));
+var [ table, tr, td ] = doms(...'table,tr,td'.split(','));
 
 
-var area = dom(function(div,span){
+var area = doms(function(div,span){
 	return div({},
 		div({},
 			span({}, ''),
@@ -72,7 +72,7 @@ var area = dom(function(div,span){
 	);
 });
 
-dom(function(table, tr, th, td) {
+doms(function(table, tr, th, td) {
 	body.append(table(
 		tr(
 			th`a bunch of text!`, // these are not the same...
@@ -82,14 +82,13 @@ dom(function(table, tr, th, td) {
 	));
 });
 
-[div,span,time,timer] = dom`div span,atr-time atrTimer`;
+[div,span,time,timer] = doms`div span,atr-time atrTimer`;
 div({},...elem)
 
 
 Redefining how all of this works...
 
-20.08 dom should return DOMElement instead of WallElement.
+20.08 doms should return DOMElement instead of WallElement.
 wall elem shorthand should be separate and optional.
-
 
 */
