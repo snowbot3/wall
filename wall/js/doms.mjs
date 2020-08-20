@@ -7,10 +7,10 @@ doms('tag1', 'tag2 class=blue', dom`tag3 class=${varClass}`, (t1,t2,t3)=>t1(
 
 import * as wall_args from './args.mjs';
 import * as conv from './conv.mjs';
-import { elem } from './elem.mjs';
+import { dom } from './dom.mjs';
 import * as type from './type.mjs';
 
-// element templating
+// dom element templating
 export function doms(...params) {
 	let names = [];
 	let cb;
@@ -33,7 +33,7 @@ export function doms(...params) {
 	}
 	const args = names.map(function(name) {
 		name = conv.camel2dash(name);
-		return elem.bind(this, name);
+		return dom.bind(this, name);
 	}, this);
 	if (cb) {
 		return cb.apply(this, args);

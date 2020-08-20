@@ -21,26 +21,26 @@ QUnit.test('doms function', function(assert) {
 			)
 		);
 	});
-	assert.equal( div.text, 'div 1div 2span 1', 'div full' );
-	assert.equal( div.query('span').get(0).text, 'span 1', 'inside span' );
+	assert.equal( div.textContent, 'div 1div 2span 1', 'div full' );
+	assert.equal( div.querySelector('span').textContent, 'span 1', 'inside span' );
 
 	const custom = doms(function(testDomsCustom) {
 		return testDomsCustom('test');
 	});
-	assert.equal( custom.elem.tagName, 'TEST-DOMS-CUSTOM', 'custom tag name' );
-	assert.equal( custom.text, 'test', 'custom text' );
+	assert.equal( custom.tagName, 'TEST-DOMS-CUSTOM', 'custom tag name' );
+	assert.equal( custom.textContent, 'test', 'custom text' );
 
 	const lamb = doms((div,span)=>div(span('cat'),span('pants')));
-	assert.equal( lamb.text, 'catpants', 'lambda' );
+	assert.equal( lamb.textContent, 'catpants', 'lambda' );
 });
 
 QUnit.test('doms string', function(assert) {
 	const div = doms('div');
 	assert.equal(typeof div, 'function', 'div is a function');
 	const d1 = div`class=sample`('text content');
-	assert.equal(d1.prop('class'), undefined, 'd1 class is not real');
-	assert.equal(d1.prop('className'), 'sample', 'd1 className');
-	assert.equal(d1.text, 'text content', 'd1 text');
+	assert.equal(d1['class'], undefined, 'd1 class is not real');
+	assert.equal(d1.className, 'sample', 'd1 className');
+	assert.equal(d1.textContent, 'text content', 'd1 text');
 
 	const [span, a] = doms('span','a');
 	assert.equal(typeof span, 'function', 'span is a function');
@@ -52,10 +52,10 @@ QUnit.test('doms string', function(assert) {
 			a`class=link href=#`('link')
 		)
 	);
-	assert.equal(d2.text, 'div1span1 link', 'd2 text');
+	assert.equal(d2.textContent, 'div1span1 link', 'd2 text');
 
 	const custom = doms('testDomsCustom'); // camel still works?
 	const c1 = custom('test');
-	assert.equal( c1.elem.tagName, 'TEST-DOMS-CUSTOM', 'custom tag name' );
-	assert.equal( c1.text, 'test', 'custom text' );
+	assert.equal( c1.tagName, 'TEST-DOMS-CUSTOM', 'custom tag name' );
+	assert.equal( c1.textContent, 'test', 'custom text' );
 });
