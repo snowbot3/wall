@@ -6,7 +6,7 @@
 	"scripts": {
 		"wall": "live-server wall",
 		"site": "live-server site",
-		"build": "rollup wall/js/all.mjs -o wall.js"
+		"build": "rollup wall/js/all.mjs -f es -o wall.js"
 	},
 	"disabled-scripts": {
 		"test": "npm run test:wall && npm run test:site",
