@@ -7,9 +7,9 @@ wall dom should return a DOM Element.
 this will allow it to work nicely with existing tools like jquery.
 */
 
-//import { is as isType, isSimpleObject, run as typeRun } from './type.mjs';
 import * as wall_type from './type.mjs';
 import tmplProps from './props.mjs';
+import { handleChildren, handleProps } from './elem/util.mjs';
 
 function isTagTmpl(param) {
 	return (
@@ -49,25 +49,7 @@ function elemTagTmplBind(params, tind) {
 		return elemTagNameTmplBind(params);
 	}
 	const props = tmplProps(...params.splice(tind));
-	return dom.bind(this, ...params, props); // stacking binds?
-}
-
-function handleProps(elem, props) {
-	for (let key in props) {
-		const val = props[key];
-		if ( key == 'class' ) { key = 'className'; }
-		elem[key] = val;
-	}
-}
-
-function handleChildren(elem, ...children) {
-	for (let child of children) {
-		if (child instanceof Node) {
-			elem.appendChild(child);
-		} else {
-			elem.appendChild(document.createTextNode(child));
-		}
-	}
+	return dom.bind(this, ...params, props);
 }
 
 // const dt = dom`div class=turtle`;
@@ -76,13 +58,10 @@ export function dom(...params /*node, ...props, ...children*/) {
 		return elemTagTmplBind(params);
 	}
 	const node = params.shift();
-	//const elem = new WallElem(node);
 	const elem = node instanceof Node ? node : document.createElement(node);
 	while (params.length > 0 && wall_type.is('simple', params[0])) {
-		//elem.props(params.shift());
 		handleProps(elem, params.shift());
 	}
-	//elem.append(...params);
 	handleChildren(elem, ...params);
 	return elem;
 }

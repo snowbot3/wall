@@ -1,4 +1,5 @@
 import * as wall_type from '../type.mjs';
+import * as elem_util from './util.mjs';
 
 export class WallElem {
 	constructor(node) {
@@ -27,14 +28,10 @@ export class WallElem {
 			});
 	}
 	append(...args) {
-		args.forEach(function(arg){
-			this._appendSingle(arg);
-		}, this);
+		elem_util.handleChildren(this.elem, ...args);
 	}
 	props(props) {
-		for (let key in props) {
-			this.prop(key, props[key]);
-		}
+		elem_util.handleProps(this.elem, props);
 	}
 	// for [String, Object] the prop settings should be recursive
 	// I would like 2 specials (so far) 'on' and 'data'
@@ -47,9 +44,7 @@ export class WallElem {
 				return this.elem[key];
 			},
 			[String, 'any'], function(key, val) {
-				// make a map when more are needed
-				if ( key == 'class' ) { key = 'className'; }
-				this.elem[key] = val;
+				elem_util.handleProp(this.elem, key, val);
 			},
 			function(arg){
 				throw new Error(`wall-elem: ${args}`);

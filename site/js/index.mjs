@@ -2,11 +2,11 @@
  * App Site
  */
 
-import { css, dom, elem, frame } from './wall/all.mjs';
+import { css, doms, elem, frame } from './wall/all.mjs';
 css.link('/css/global.css');
 
 function link(url, text) {
-	return dom((div,a)=>div(
+	return doms((div,a)=>div(
 		a`href=${url}`(text)
 	));
 }
@@ -24,7 +24,7 @@ frame.onhash(async function(hash){
 }, true);
 
 const body = elem(document.body);
-body.append(dom(function(div, hr) {
+body.append(doms(function(div, hr) {
 	return div`class=l-outer`(
 		div`class=l-side`(
 			div`class=l-side-nav`(
