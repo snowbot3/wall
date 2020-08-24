@@ -45,3 +45,11 @@ QUnit.test('dom.bind(str)`prop tag temp`', function(assert) {
 	assert.equal(a2.tagName, 'A', 'bind(a)`href`().tagName');
 	assert.equal(a2.href, '' + window.location.href + '#', 'bind(a)`href`().href');
 });
+QUnit.test('dom`prop=+val`', function(assert) {
+	const a = dom`a class=a title=a`;
+	const b = a`class=+b title=+b`;
+	const c = b();
+	assert.equal(c.tagName, 'A', 'tagname');
+	assert.equal(c.className, 'a b', 'className');
+	assert.equal(c.title, '+b', 'title');
+});
