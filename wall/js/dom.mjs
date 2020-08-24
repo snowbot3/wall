@@ -18,7 +18,7 @@ function isTagTmpl(param) {
 	);
 }
 
-function elemTagNameTmplBind(params) {
+function domTagNameTmplBind(params) {
 	const raw = Array.from(params[0].raw || params[0]);
 	const first = raw[0].trimLeft();
 	const nind = first.search(/[=\s]/);
@@ -26,13 +26,13 @@ function elemTagNameTmplBind(params) {
 		return dom.bind(this, first);
 	} else {
 		if (nind == -1) {
-			return elemTagTmplBind([
+			return domTagTmplBind([
 				first,
 				['', ...(raw.slice(1))],
 				...params.slice(1)
 			], 1);
 		}
-		return elemTagTmplBind([
+		return domTagTmplBind([
 			first.slice(0, nind),
 			[first.slice(nind), ...(raw.slice(1))],
 			...params.slice(1)
@@ -41,21 +41,21 @@ function elemTagNameTmplBind(params) {
 	throw new Error('WallDom: bind tagName: bad format');
 }
 
-function elemTagTmplBind(params, tind) {
+function domTagTmplBind(params, tind) {
 	if (tind == undefined) {
 		tind = params.findIndex(isTagTmpl, 0);
 	}
 	if (tind == 0) {
-		return elemTagNameTmplBind(params);
+		return domTagNameTmplBind(params);
 	}
 	const props = tmplProps(...params.splice(tind));
 	return dom.bind(this, ...params, props);
 }
 
-// const dt = dom`div class=turtle`;
+// const dt = dom`div class=turtle`('text');
 export function dom(...params /*node, ...props, ...children*/) {
 	if (params.some(isTagTmpl)) {
-		return elemTagTmplBind(params);
+		return domTagTmplBind(params);
 	}
 	const node = params.shift();
 	const elem = node instanceof Node ? node : document.createElement(node);
