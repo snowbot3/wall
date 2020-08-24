@@ -1,0 +1,67 @@
+/* global, basics, and default coloring */
+
+html {
+	height: 100%;
+	margin: 0;
+}
+body {
+	height: 100%;
+	margin: 0;
+	position: relative;
+	background: #cccccc;
+	color: black;
+	user-select: none;
+}
+
+body * {
+	box-sizing: border-box;
+}
+
+.ui-win {
+	position: absolute;
+	min-width: 200px; min-height: 200px;
+	border: 2px solid black;
+	background: #cccccc;
+	resize: both;
+}
+
+.ui-win-outer {
+	position: absolute;
+	top: 3px; bottom: 3px;
+	left: 3px; right: 3px;
+	border: 1px solid black;
+	background: #ffffff;
+	display: flex;
+	flex-direction: column;
+}
+
+.ui-win-titlebar {
+	display: flex;
+	white-space: nowrap;
+	height: 24px;
+	text-align: center;
+}
+
+.ui-button {
+	background: #c2c2c2;
+}
+
+.ui-win-titlebar .ui-button {
+	width: 24px;
+}
+
+.ui-win-title {
+	background: #0000c2;
+	color: white;
+	font-size: 16px;
+	flex: 1;
+	padding: 2px 0 0 0;
+}
+
+.ui-text-select {
+	user-select: text;
+}
+
+.ui-win-inner {
+	flex: 1;
+}
