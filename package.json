@@ -5,7 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"wall": "live-server wall",
-		"site": "live-server site"
+		"site": "live-server site",
+		"build": "rollup wall/js/all.mjs -o wall.js"
 	},
 	"disabled-scripts": {
 		"test": "npm run test:wall && npm run test:site",
@@ -17,6 +18,7 @@
 	"devDependencies": {
 		"http-server": "^0.12.1",
 		"live-server": "^1.2.1",
-		"qunit": "^2.9.2"
+		"qunit": "^2.9.2",
+		"rollup": "^2.26.5"
 	}
 }
