@@ -1,5 +1,4 @@
 
-import './test/conv.mjs';
 import './test/css.mjs';
 import './test/oddity.mjs';
 import './test/props.mjs';

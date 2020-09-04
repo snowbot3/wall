@@ -6,9 +6,12 @@ doms('tag1', 'tag2 class=blue', dom`tag3 class=${varClass}`, (t1,t2,t3)=>t1(
 */
 
 import * as wall_args from './args.mjs';
-import * as conv from './conv.mjs';
 import { dom } from './dom.mjs';
 import * as type from './type.mjs';
+
+export function camel2dash(camel) {
+	return camel.replace(/^([A-Z])/, (g)=>g[0].toLowerCase()).replace(/([A-Z])/g, (g) => '-'+g[0].toLowerCase());
+}
 
 // dom element templating
 export function doms(...params) {
@@ -32,7 +35,7 @@ export function doms(...params) {
 		names = wall_args.names(cb);
 	}
 	const args = names.map(function(name) {
-		name = conv.camel2dash(name);
+		name = camel2dash(name);
 		return dom.bind(this, name);
 	}, this);
 	if (cb) {
