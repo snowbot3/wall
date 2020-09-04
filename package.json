@@ -1,24 +1,19 @@
 {
 	"name": "wall",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Browser compatable web work",
 	"main": "index.js",
 	"scripts": {
-		"wall": "live-server wall",
-		"site": "live-server site",
-		"build": "rollup wall/js/all.mjs -f es -o wall.js"
+		"wall": "live-server --no-browser wall",
+		"site": "live-server --no-browser site",
+		"build": "rollup -c"
 	},
-	"disabled-scripts": {
-		"test": "npm run test:wall && npm run test:site",
-		"test:wall": "cd wall; qunit",
-		"test:site": "cd site; qunit"
-	},
-	"author": "",
+	"author": "snowbot3 <snowbot3@gmail.com>",
 	"license": "ISC",
 	"devDependencies": {
-		"http-server": "^0.12.1",
 		"live-server": "^1.2.1",
 		"qunit": "^2.9.2",
-		"rollup": "^2.26.5"
-	}
+		"rollup": "^2.26.9"
+	},
+	"dependencies": {}
 }
