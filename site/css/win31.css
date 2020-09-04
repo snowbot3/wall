@@ -19,16 +19,39 @@ body * {
 
 .ui-win {
 	position: absolute;
-	min-width: 200px; min-height: 200px;
-	border: 2px solid black;
 	background: #cccccc;
+	border: 2px solid black;
 	resize: both;
+	min-width: 160px;
+	min-height: 100px;
+	overflow: hidden;
+	box-shadow: 2px 2px 2px #999999;
+}
+
+.ui-win::after {
+	content: 'temp';
+	position: absolute;
+	display: block;
+	top: 0; bottom: 0;
+	left: 0; right: 0;
+	outline: 2px solid pink;
+}
+
+.ui-win:last-child {
+	box-shadow: 4px 4px 4px #666666;
+	background: #999999;
+}
+.ui-win:last-child::after {
+	display: none;
+}
+.ui-win:last-child >.ui-win-outer {
+	outline: 2px solid #0000c2;
 }
 
 .ui-win-outer {
 	position: absolute;
-	top: 3px; bottom: 3px;
-	left: 3px; right: 3px;
+	top: 2px; bottom: 2px;
+	left: 2px; right: 2px;
 	border: 1px solid black;
 	background: #ffffff;
 	display: flex;
