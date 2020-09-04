@@ -1,6 +1,6 @@
 // clock
 import { format as df } from '/js/date.js';
-import { elem } from '/js/wall/all.mjs';
+import { elem } from '/js/wall.js';
 
 const dfTime = df`h:mm:ss tt`;
 
@@ -9,7 +9,8 @@ class Clock {
 	constructor(par) {
 		this.#par = par;
 		this.tick();
-		par.onunload(this.stop.bind(this));
+		//par.onunload(this.stop.bind(this));
+		par.onunload(()=>this.stop());
 	}
 	stop() {
 		this.#par = null;
@@ -19,7 +20,8 @@ class Clock {
 		//const text = '' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
 		const text = dfTime(now);
 		this.#par.text = text;
-		setTimeout(this.next.bind(this), 1010-now.getMilliseconds());
+		//setTimeout(this.next.bind(this), 1010-now.getMilliseconds());
+		setTimeout(()=>this.next(), 1010-now.getMilliseconds());
 	}
 	next() {
 		if (this.#par) { // this is why a page-like concept would be nice. onbeforeunload

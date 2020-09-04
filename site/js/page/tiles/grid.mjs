@@ -1,19 +1,19 @@
 /** Tiles page helper: Grid */
 
-import { dom } from '/js/wall/all.mjs';
+import { elem } from '/js/wall.js';
 
 export default class GridConcept {
 	method=undefined;
 	active=0;
 	constructor(){
-		this.elem = dom('div')`class=tile-grid`();
+		this.elem = elem`div class=tile-grid`();
 	}
 	reset() {
 		this.elem.text = '';
 	}
 	addOne(anime) {
 		const count = this.elem.kids.length;
-		const kid = dom('span')`class='tile hide anime${anime}'`(' '); //(count + 1);
+		const kid = elem`span class='tile hide anime${anime}'`(' '); //(count + 1);
 		this.elem.append(kid);
 		return kid;
 	}

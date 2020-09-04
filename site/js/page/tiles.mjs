@@ -1,6 +1,6 @@
 /** Tiles page */
 
-import { css, dom } from '/js/wall/all.mjs';
+import { css, elem, doms } from '/js/wall.js';
 import GridConcept from './tiles/grid.mjs';
 
 css.link('./css/tiles.css').then(function(sheet){
@@ -32,7 +32,7 @@ css.link('./css/tiles.css').then(function(sheet){
 });
 
 const grid = new GridConcept();
-const scroll = dom('div')`class=tile-scroll`();
+const scroll = elem`div class=tile-scroll`();
 
 export function side() {
 	function wrap(cmd, ...params) {
@@ -63,7 +63,7 @@ export function side() {
 			}
 		}
 	});
-	return dom((div,span,a)=>div`class=tile-controls`(
+	return doms((div,span,a)=>div`class=tile-controls`(
 		//a({ href: '#tiles', onclick: wrap('reset') }, 'Reset'),
 		div`style='display:inline-block;width:2em;height:2em;border-bottom:1px solid black;'`(' '),
 		div(' Tile Base::'),
@@ -81,7 +81,7 @@ export function side() {
 	));
 };
 export default function() {
-	return dom((div,span,a)=>div`class=tile-outer`(
+	return doms((div,span,a)=>div`class=tile-outer`(
 		grid.elem,
 		scroll
 	));

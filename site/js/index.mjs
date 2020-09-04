@@ -2,7 +2,7 @@
  * App Site
  */
 
-import { css, doms, elem, frame } from './wall/all.mjs';
+import { css, doms, elem, frame } from './wall.js';
 css.link('/css/global.css');
 
 function link(url, text) {

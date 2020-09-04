@@ -3,7 +3,7 @@
  */
 
 import { format as df } from '/js/date.js';
-import { css, dom, elem } from '/js/wall/all.mjs';
+import { css, doms, elem } from '/js/wall.js';
 
 css(`div.note-stack {
 	margin: 1em;
@@ -28,12 +28,12 @@ css(`div.note-stack {
 // textarea autogrow and reset
 // how would I want this?
 /*
-const textarea = dom('textarea'); // could return new WallElemTextArea()
+const textarea = doms('textarea'); // could return new WallElemTextArea()
 const ta = textarea;
 div.append(ta);
 ta.autogrow();
 // or
-dom((div,textarea)=>div(
+doms((div,textarea)=>div(
 	textarea`autogrow`() // but if the function ever has arguments, we start hitting issues...
 ));
 // I need to hit other special behaviors before deciding
@@ -56,15 +56,54 @@ function autogrow(ta) {
 	});
 }
 
+function tabIndent(ta) {
+	ta.on('keydown', function(e){
+		var keyCode = e.keyCode || e.which;
+		if (keyCode == 9) {
+			e.preventDefault();
+			var start = this.selectionStart;
+			var end = this.selectionEnd;
+
+			// set textarea value to: text before caret + tab + text after caret
+			$(this).val($(this).val().substring(0, start)
+				+ "\t"
+				+ $(this).val().substring(end));
+
+			// put caret at right position again
+			this.selectionStart =
+			this.selectionEnd = start + 1;
+		}
+	});
+}
+
+function focusNextElement() {
+    //add all elements we want to include in our selection
+    var focussableElements = 'a:not([disabled]), button:not([disabled]), input[type=text]:not([disabled]), [tabindex]:not([disabled]):not([tabindex="-1"])';
+    if (document.activeElement && document.activeElement.form) {
+        var focussable = Array.prototype.filter.call(document.activeElement.form.querySelectorAll(focussableElements),
+        function (element) {
+            //check for visibility while always include the current activeElement 
+            return element.offsetWidth > 0 || element.offsetHeight > 0 || element === document.activeElement
+        });
+        var index = focussable.indexOf(document.activeElement);
+        if(index > -1) {
+           var nextElement = focussable[index + 1] || focussable[0];
+           nextElement.focus();
+        }                    
+    }
+}
+
+
 const dfTime = df`h:mm:ss tt`;
 class NoteEntry {
 	constructor() {
-		this.outer = dom((div,textarea)=>div`class=note`(
-			this.elemTime = div`class=note-time`(),
-			this.textarea = textarea()
-		));
+		this.outer = elem(doms((div,textarea)=>div`class=note`(
+			this.elemTime = elem(div`class=note-time`()),
+			this.textarea = elem(textarea())
+		)));
 		this.textarea.on('input', this.doOnInput.bind(this));
 		autogrow(this.textarea);
+		tabIndent(this.textarea);
 	}
 	doOnInput(ev) {
 		const { value } = this.textarea.elem;
@@ -110,8 +149,8 @@ function fnReBind(fn, that) {
 
 class NoteSystem {
 	constructor() {
-		this.outer = dom((div, textarea)=>div(
-			this.stack = div`class=note-stack`(),
+		this.outer = doms((div, textarea)=>div(
+			this.stack = elem(div`class=note-stack`()),
 		));
 		this.createNote();
 	}
