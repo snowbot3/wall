@@ -9,7 +9,8 @@ this will allow it to work nicely with existing tools like jquery.
 
 import * as wall_type from './type.mjs';
 import tmplProps from './props.mjs';
-import { handleChildren, handleProps } from './elem/util.mjs';
+import { handleProps } from './elem/util.mjs';
+import * as qe from './qelem.mjs';
 
 function isTagTmpl(param) {
 	return (
@@ -62,6 +63,6 @@ export function dom(...params /*node, ...props, ...children*/) {
 	while (params.length > 0 && wall_type.is('simple', params[0])) {
 		handleProps(elem, params.shift());
 	}
-	handleChildren(elem, ...params);
+	qe.append(elem, ...params);
 	return elem;
 }

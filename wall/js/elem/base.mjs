@@ -1,5 +1,6 @@
 import * as wall_type from '../type.mjs';
 import * as elem_util from './util.mjs';
+import * as qe from '../qelem.mjs';
 
 export class WallElem {
 	constructor(node) {
@@ -13,22 +14,8 @@ export class WallElem {
 		}
 		this.elem = node;
 	}
-	_appendSingle(...args) {
-		wall_type.run(this, args,
-			[WallElem], function(elem) {
-				this.elem.appendChild(elem.elem);
-			},
-			[Node], function(node) {
-				this.elem.appendChild(node);
-			},
-			function(arg) {
-				this.elem.appendChild(
-					document.createTextNode(arg)
-				);
-			});
-	}
 	append(...args) {
-		elem_util.handleChildren(this.elem, ...args);
+		qe.append(this.elem, ...args);
 	}
 	props(props) {
 		elem_util.handleProps(this.elem, props);
@@ -59,7 +46,6 @@ export class WallElem {
 	clear() {
 		this.elem.innerHTML = ''; // fastest tested!
 	}
-	/* * query was here * */
 	remove() {
 		return this.elem.remove();
 	}
@@ -67,14 +53,9 @@ export class WallElem {
 		return window.getComputedStyle(this.elem);
 	}
 	on(evname, evfn, props) {
-		this.elem.addEventListener(evname, evfn.bind(this), props);
+		qe.on(this.elem, evname, evfn.bind(this), props);
 	}
-	// Which is better "fire" or "emit"?
-	fire(evname, detail) {
-		const ev = new CustomEvent(evname, {
-			//bubbles: true,
-			detail: detail || {}
-		});
-		return this.elem.dispatchEvent(ev);
+	emit(evname, detail) {
+		return qe.emit(this.elem, evname, detail);
 	}
 }

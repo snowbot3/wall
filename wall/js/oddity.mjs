@@ -28,6 +28,7 @@ function cycle_inner(obj, params) {
 		return cycle_await(obj, params);
 	} else if (obj instanceof Function || typeof obj == 'function') {
 		if (params.length > 0) {
+			// if obj() is the last step, then the last param can be anything, like [true].
 			return cycle_inner(obj(), params);
 		}
 	} else if (obj instanceof Object) {

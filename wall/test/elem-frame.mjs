@@ -31,9 +31,10 @@ QUnit.test('load', function(assert){
 	frame.load({ 'second': elem('div', 'loaded second') }, 'second');
 	assert.equal(frame.elem.children.length, 1, 'load import children');
 	const c2 = frame.elem.children[0];
-	assert.equal(c1.textContent, 'Loading...onload.', 'load import text');
+	assert.equal(c1.textContent, 'Loading...onload.onunload', 'load import text');
 	assert.equal(c2.textContent, 'loaded second', 'load import text');
 });
+
 QUnit.test('load import', async function(assert){
 	const fixture = document.getElementById('qunit-fixture');
 	const frame = elem('div');

@@ -2,6 +2,7 @@
 import './test/css.mjs';
 import './test/oddity.mjs';
 import './test/props.mjs';
+import './test/frame.mjs';
 import './test/args.mjs'; // requires type
 import './test/type.mjs'; // requires oddity
 import './test/elem.mjs'; // requires props, type
