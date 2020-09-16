@@ -22,10 +22,10 @@ function dragWin(win, ev) {
 		win.style.top = px(y);
 	}
 	function onMouseUp(ev) {
-		b.removeEventListener('mousemove', onMouseMove);
+		b.removeEventListener('pointermove', onMouseMove);
 	}
-	b.addEventListener('mouseup', onMouseUp, { once: true });
-	b.addEventListener('mousemove', onMouseMove);
+	b.addEventListener('pointerup', onMouseUp, { once: true });
+	b.addEventListener('pointermove', onMouseMove);
 }
 
 function uiWinTitle(title) {
@@ -89,7 +89,7 @@ class WinFormIdea {
 		this.view = doms('div', 'form','label', 'input', 'textarea', 'button', function (d,f,l,i,t,b) {
 			const it=i`type=text`;
 			return d(
-				f`action='#' onclick=${(ev)=>this.onSubmit(ev)}`(
+				f`action='#' onsubmit=${(ev)=>this.onSubmit(ev)}`(
 					d(l('First Name'), it`name=first`()),
 					d(l('Last Name'), it`name=last`()),
 					d(l('Note'), t()),
