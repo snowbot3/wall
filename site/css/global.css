@@ -45,3 +45,16 @@ body {
 }
 
 .bb { border-bottom: 1px solid black; }
+
+.jsframe { position: relative; }
+.jsframe::after {
+	content: 'Loading...';
+	display: none;
+	position: absolute;
+	top: 0; left: 0;
+	bottom: 0; right: 0;
+	background: #ffffff;
+}
+.jsframe.loading::after {
+	display: block;
+}

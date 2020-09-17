@@ -80,9 +80,19 @@ export function side() {
 		div( a`href=#tiles onclick=${page('puzzle')}`('Puzzle') )
 	));
 };
-export default function() {
-	return doms((div,span,a)=>div`class=tile-outer`(
+
+async function lazydelay(t) {
+	return new Promise((res)=>setTimeout(res, t));
+}
+
+export default async function() {
+	const main = elem`div class=tile-outer`(
 		grid.elem,
 		scroll
-	));
+	);
+	// faking a load time.
+	await lazydelay(2000);
+	//await grid.fillPage('none', 0);
+	//main.onload(()=>grid.fillPage('none', 0));
+	return main;
 };

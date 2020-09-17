@@ -11,10 +11,15 @@ function link(url, text) {
 	));
 }
 
-const frmSide = frame();
-const frmMain = frame();
+const elem_frame = elem`div class=jsframe`;
+const frmSide = elem_frame(); //frame();
+const frmMain = elem_frame();
+frmMain.onload(function(ev){ this.elem.classList.remove('loading'); });
+//frmMain.onunload(function(ev){ this.elem.classList.add('loading'); });
+
 frame.onhash(async function(hash){
 	const mod = import(`./page/${hash || 'home'}.mjs`);
+	frmMain.elem.classList.add('loading');
 	frmMain.load(mod, 'main'); // mod.default
 	try {
 		await frmSide.load(mod, 'side');

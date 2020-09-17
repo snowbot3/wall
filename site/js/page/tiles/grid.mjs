@@ -46,15 +46,18 @@ export default class GridConcept {
 			delayMod = delayMod ?? 1;
 			this.method = [anime, delayMod];
 		}
-		this._fillPage();
+		//this._fillPage();
+		return new Promise((res, rej)=>this._fillPage(res));
 	}
-	_fillPage() {
+	_fillPage(done) {
 		const [anime, delayMod] = this.method;
 		this.fillRow(anime, delayMod);
 		const that = this;
 		setTimeout(function(){
 			if (that.needRow()) {
-				that._fillPage();
+				that._fillPage(done);
+			} else {
+				done();
 			}
 		}, delayMod * 400);
 		/*const that = this;

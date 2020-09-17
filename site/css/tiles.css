@@ -103,8 +103,8 @@ span.tile {
 	/* width: 100px; height: 100px; */
 	width: 100px; height: 100px;
 	background: lightgrey;
-	animation-duration: 450ms;
-	transition: transform 100ms;
+	animation-duration: 400ms;
+	transition: transform 250ms;
 }
 
 /*span.tile:nth-child(3n+2) {
