@@ -5,7 +5,6 @@ export * as qe from './qelem.mjs';
 export * as frame from './frame.mjs';
 export { dom } from './dom.mjs';
 export { doms } from './doms.mjs';
-export { elem } from './elem.mjs';
 
 function wrap(mod) {
 	function wrap(...params) {
@@ -15,6 +14,8 @@ function wrap(mod) {
 	return wrap;
 }
 
+import * as wall_elem from './elem.mjs';
+const elem = wrap(wall_elem);
 import * as wall_css from './css.mjs';
 const css = wrap(wall_css);
-export { css };
+export { elem, css };

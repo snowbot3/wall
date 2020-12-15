@@ -10,7 +10,7 @@ export { WallElemList } from './elem/list.mjs';
 
 // const dt = elem`div class=turtle`;
 // still acts like before, but elem templating code is in wall-dom now.
-export function elem(...params) {
+export default function elem(...params) {
 	let init = dom;
 	if (params.length > 0 && params[0] instanceof Function) {
 		init = params.shift();
@@ -20,4 +20,14 @@ export function elem(...params) {
 		return elem.bind(this, rtn);
 	}
 	return new WallElem(rtn);
+}
+
+export function id(id, ...params) {
+	let node = document.getElementById(id);
+	return elem(node, ...params);
+}
+
+export function query(sel) {
+	let doc = elem(document.documentElement);
+	return doc.query(sel);
 }
