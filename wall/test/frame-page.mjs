@@ -2,7 +2,7 @@
  * JavaScript Module with default function that returns a WallPage object, for testing.
  */
 
-import { elem as wall_elem } from '../js/elem.mjs';
+import wall_elem from '../js/elem.mjs';
 
 export default function() {
 	const elem = wall_elem('div');

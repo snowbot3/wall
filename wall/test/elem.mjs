@@ -1,6 +1,6 @@
 /** wall-elem **/
 
-import { elem, WallElem } from '../js/elem.mjs';
+import { default as elem, WallElem } from '../js/elem.mjs';
 
 /** element utilities */
 QUnit.module('elem');

@@ -1,0 +1,24 @@
+html {
+	height: 100%;
+	margin: 0;
+}
+body {
+	height: 100%;
+	margin: 0;
+}
+
+.l-outer { }
+.l-output { }
+.l-output>.page{
+	border:1px solid;
+	padding: 0 6px;
+	min-height: 1.1em;
+	margin-bottom: 4px;
+}
+.l-input { }
+
+
+.l-input >form >input {
+	box-sizing: border-box;
+	width: 100%;
+}
