@@ -11,9 +11,16 @@ body {
 .l-output { }
 .l-output>.page{
 	border:1px solid;
-	padding: 0 6px;
 	min-height: 1.1em;
 	margin-bottom: 4px;
+}
+.l-output>.page>.page-title{
+	padding: 0px 3px;
+	background: #ddd;
+	font-family: monospace;
+}
+.l-output>.page>.page-content{
+	padding: 0 6px;
 }
 .l-input { }
 
@@ -21,4 +28,5 @@ body {
 .l-input >form >input {
 	box-sizing: border-box;
 	width: 100%;
+	font-family: monospace;
 }
