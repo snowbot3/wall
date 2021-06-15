@@ -22,6 +22,9 @@ body {
 .l-output>.page>.page-content{
 	padding: 0 6px;
 }
+.l-output>.page>.page-content img {
+	max-width: 100%;
+}
 .l-input { }
 
 

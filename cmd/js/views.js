@@ -55,6 +55,18 @@ export function tvshow(data) {
         );
     });
 }
+export function tvshow2(data) {
+    const limit = data.slice(0,5);
+    return view.div(
+        view.ol(
+            ...(limit.map(r=>view.div(
+                view.anchor(r.show.url, r.show.name),
+                ...(view.raw(r.show.url))
+            )))
+        ),
+        more(view.ol(...(data.map(p=>json(p)))), 'Show JSON')
+    );
+}
 
 export function div(...args) {
     const div = elem`div`;

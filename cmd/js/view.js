@@ -26,7 +26,7 @@ export function ol(...args) {
     return ol;
 }
 export function anchor(url,txt) {
-    return dom`a href=${url}`(txt || url);
+    return dom`a target=_blank href=${url}`(txt || url);
 }
 export function img(url) {
     return dom`img src=${url}`();
@@ -36,4 +36,3 @@ export function raw(raw) {
     div.innerHTML = raw;
     return Array.from(div.children);
 }
-

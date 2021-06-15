@@ -17,7 +17,7 @@ export async function exec(line) {
         return '';
     }
     const arg0 = line.shift();
-    if (arg0 == 'cmds') {
+    if (arg0 == 'help' || arg0 == 'cmds') {
         return Object.keys(cmds).join(' ');
     } else if (arg0 in cmds) {
         const cmd = cmds[arg0];
