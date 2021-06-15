@@ -36,3 +36,40 @@ export function raw(raw) {
     div.innerHTML = raw;
     return Array.from(div.children);
 }
+
+const domDiv = dom`div`;
+function more(elem, text) {
+    const extra = domDiv(elem);
+    extra.style.display = 'none';
+    const toggle = function(){
+        if (extra.style.display == 'none') {
+            extra.style.display = '';
+        } else {
+            extra.style.display = 'none';
+        }
+    };
+    return domDiv(dom`button type=button onclick=${toggle}`(text||'More'), extra);
+}
+function jsonLine(line){
+    const indent = line.search(/\S/);
+    const div = domDiv(line);
+    div.style.paddingLeft = `${indent}em`;
+    return div;
+}
+function jsonOnly(json) {
+    const lines = JSON.stringify(json,null,2).split('\n').map(jsonLine);
+    return domDiv(...lines);
+};
+// json (url, json=>view)
+export async function json(url, view) {
+    const data = await((await fetch(url)).json());
+    const stackView = [];
+    const divJson = jsonOnly(data);
+    if (view && view.call) {
+        stackView.push(view(data));
+        stackView.push(more(divJson, 'json'));
+    } else {
+        stackView.push(divJson);
+    }
+    return div(...stackView);
+}

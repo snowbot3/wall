@@ -25,10 +25,16 @@ body {
 .l-output>.page>.page-content img {
 	max-width: 100%;
 }
-.l-input { }
+.l-input {
+	position: relative;
+}
+.l-input select.history {
+	position: absolute;
+	bottom: 100%;
+}
 
-
-.l-input >form >input {
+.l-input >form >input,
+.l-input >form >select {
 	box-sizing: border-box;
 	width: 100%;
 	font-family: monospace;

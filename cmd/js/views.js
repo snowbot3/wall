@@ -40,31 +40,11 @@ function more(elem, text) {
 // specific
 export function tvshow(data) {
     const limit = data.slice(0,5);
-    return doms(function(div,ol,li,a){
-        const lis = limit.map(function(show){
-            const desc = view.raw(show.show.summary);
-            return li(
-                a`target=_blank href=${show.show.url}`(show.show.name),
-                ...desc
-            );
-        });
-        const asJson = data.map(p=>json(p));
-        return div(
-            ol(...lis),
-            more(view.ol(...asJson), 'Show JSON')
-        );
-    });
-}
-export function tvshow2(data) {
-    const limit = data.slice(0,5);
-    return view.div(
-        view.ol(
-            ...(limit.map(r=>view.div(
-                view.anchor(r.show.url, r.show.name),
-                ...(view.raw(r.show.url))
-            )))
-        ),
-        more(view.ol(...(data.map(p=>json(p)))), 'Show JSON')
+    return view.ol(
+        ...(limit.map(r=>view.div(
+            view.anchor(r.show.url, r.show.name),
+            ...(view.raw(r.show.url))
+        )))
     );
 }
 
