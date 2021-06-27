@@ -33,6 +33,21 @@ QUnit.test('css', function(assert) {
 	assert.equal( compIn.color, 'rgb(128, 0, 128)', '3 inner text color' );
 });
 
+QUnit.test('css splitting', function(assert) {
+	const fixture = document.getElementById('qunit-fixture');
+	fixture.innerHTML = `
+		<div id="test-css-id">
+			<div class="test-css-class"></div>
+		</div>
+	`;
+	const inner = fixture.querySelector('div#test-css-id > div.test-css-class');
+	css('#test-css-id { border: 1px solid navy; }');
+	css('#test-css-id { border-color: green; } ');
+	css('.test-css-class { color: navy; } #test-css-id > .test-css-class { color: purple; }');
+	const compIn = window.getComputedStyle(inner);
+	assert.equal( compIn.color, 'rgb(128, 0, 128)', 'split inner text color' );
+});
+
 QUnit.test('sheet', function(assert){
 	const fixture = document.getElementById('qunit-fixture');
 	fixture.innerHTML = `
