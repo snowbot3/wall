@@ -73,3 +73,8 @@ export async function json(url, view) {
     }
     return div(...stackView);
 }
+
+// hard set 10 max per page
+export async function pagination(arr, view) {
+    //
+}
