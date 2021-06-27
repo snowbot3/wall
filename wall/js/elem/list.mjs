@@ -7,6 +7,8 @@ export class WallElemList extends Array {
 			this.push(...elems);
 		}*/
 	}
+	// elem.kids[0] == dom child
+	// elem.kids.get(0) == elem wrapped dom child
 	get(index) {
 		return new WallElem(this[index]);
 	}
