@@ -20,9 +20,13 @@ export async function ip() {
     return json.ip;
 }
 
-export async function joke() {
+export async function joke(...args) {
+    if (args.length > 0) {
+        // id?
+    }
     // https://v2.jokeapi.dev/joke/Any
-    return view.json('https://v2.jokeapi.dev/joke/Any', function(json) {
+    const url = 'https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit';
+    return view.json(url, function(json) {
         const joke = [
             json.joke,
             json.setup,
@@ -56,15 +60,14 @@ export async function search(...args) {
 }
 
 export async function api() {
-    // https://github.com/marciovsena/abibliadigital/blob/master/DOCUMENTATION.md/
+    // https://github.com/public-apis/public-apis
+    // https://github.com/davemachado/public-api
     return view.json('https://api.publicapis.org/entries', json=>view.ol(
         ...(json.entries.map(r=>view.div(view.anchor(r.Link, r.API), r.Category, r.Description)))
     ));
 }
 
 export async function bible(...args) {
-    // https://github.com/marciovsena/abibliadigital/blob/master/DOCUMENTATION.md/
-    // https://www.abibliadigital.com.br/api/versions
     //const json = await fetchJson('https://www.abibliadigital.com.br/api/versions');
     return view.json('https://www.abibliadigital.com.br/api/verses/kjv/random',
         json => view.div( `${json.book.name} ${json.chapter}:${json.number} (${json.book.version})`,
