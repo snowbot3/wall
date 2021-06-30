@@ -5,7 +5,6 @@
 	"main": "index.js",
 	"scripts": {
 		"wall": "live-server --no-browser wall",
-		"site": "live-server --no-browser site",
 		"cmd": "live-server --no-browser cmd",
 		"build": "rollup -c"
 	},
