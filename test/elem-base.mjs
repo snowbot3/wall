@@ -91,7 +91,9 @@ QUnit.test('comp', function(assert){
 	assert.equal(div.comp.border, '', 'comp border');
 	const fixture = document.getElementById('qunit-fixture');
 	fixture.appendChild(div.elem);
-	assert.equal(div.comp.border, '1px solid rgb(0, 0, 128)', 'comp border');
+	assert.equal(div.comp.borderTopWidth, '1px', 'comp border width');
+	assert.equal(div.comp.borderTopStyle, 'solid', 'comp border style');
+	assert.equal(div.comp.borderTopColor, 'rgb(0, 0, 128)', 'comp border color');
 });
 QUnit.skip('on', function(){});
 QUnit.skip('fire', function(){});
