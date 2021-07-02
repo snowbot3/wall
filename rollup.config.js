@@ -1,5 +1,5 @@
 export default {
-	input: './wall/js/all.mjs',
+	input: './js/all.mjs',
 	output: {
 		file: 'wall.js',
 	}
