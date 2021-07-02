@@ -14,7 +14,6 @@ export function on(elem, name, fn, opts) {
 }
 export function emit(elem, name, detail) {
 	// no clue how 'detail' works, just including it.
-	console.log('::COF:: emit for ', name);
 	const ev = new CustomEvent(name, {
 		//bubbles: true,
 		detail: detail || {}

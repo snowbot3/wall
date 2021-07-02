@@ -22,7 +22,6 @@ class WallSheet {
 		} else if (rules.length == 1) {
 			this.insertSingle(data, index);
 		} else {
-			console.log('::COF::match ', rules);
 			for (let i=0; i<rules.length; i++) {
 				this.insertSingle(rules[i], index + i);
 			}

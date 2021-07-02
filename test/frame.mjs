@@ -15,7 +15,6 @@ QUnit.test('load', function(assert){
 		this.appendChild(document.createTextNode('onload.'));
 	});
 	frame.onunload(page, function(){
-		console.log('::COF:: ', this);
 		this.appendChild(document.createTextNode('onunload'));
 	});
 	frame.load(outer, page);
@@ -24,7 +23,6 @@ QUnit.test('load', function(assert){
 	assert.equal(c1.textContent, 'Loading...onload.', 'load import text');
 	const secondElem = document.createElement('div');
 	secondElem.textContent = 'loaded second';
-	console.log('::COF:: before second');
 	frame.load(outer, { 'second': secondElem }, 'second');
 	assert.equal(outer.children.length, 1, 'load import children');
 	const c2 = outer.children[0];
