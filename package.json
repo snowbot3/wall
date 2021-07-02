@@ -4,8 +4,7 @@
 	"description": "Browser compatable web work",
 	"main": "index.js",
 	"scripts": {
-		"wall": "live-server --no-browser wall",
-		"cmd": "live-server --no-browser cmd",
+		"start": "live-server --no-browser wall",
 		"build": "rollup -c"
 	},
 	"author": "snowbot3 <snowbot3@gmail.com>",
