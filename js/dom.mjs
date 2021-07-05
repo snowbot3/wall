@@ -1,4 +1,4 @@
-/** wall-dom **/
+/** @module wall-dom */
 /*
 Concept changed:
 single element templating from wall-elem moved here.
@@ -12,6 +12,11 @@ import tmplProps from './props.mjs';
 import { handleProps } from './elem/util.mjs';
 import * as qe from './qelem.mjs';
 
+/**
+ * Determine if param is an Array from a tag template
+ * @param param {Object | Array} object to test
+ * @returns boolean
+ */
 function isTagTmpl(param) {
 	return (
 		param instanceof Array
@@ -19,6 +24,11 @@ function isTagTmpl(param) {
 	);
 }
 
+/**
+ * Pull the tagname from the tag template and try domTagTmplBind again.
+ * @param params {Array} 
+ * @returns function
+ */
 function domTagNameTmplBind(params) {
 	const raw = Array.from(params[0].raw || params[0]);
 	const first = raw[0].trimLeft();
@@ -42,6 +52,13 @@ function domTagNameTmplBind(params) {
 	throw new Error('WallDom: bind tagName: bad format');
 }
 
+/**
+ * Convert tag template into dom params
+ * @example dom`div class=turtle` => dom.bind(this,'div',{'class':'turtle'});
+ * @param params {...Array} Craziness
+ * @param tind {number} starting index of tag template
+ * @returns function
+ */
 function domTagTmplBind(params, tind) {
 	if (tind == undefined) {
 		tind = params.findIndex(isTagTmpl, 0);
@@ -53,7 +70,13 @@ function domTagTmplBind(params, tind) {
 	return dom.bind(this, ...params, props);
 }
 
-// const dt = dom`div class=turtle`('text');
+/**
+ * DomElement shorthand creator
+ * @example dom`div class=turtle`('text')
+ * @example dom('div',{'class':'turtle'},'text')
+ * @param params {...(Node | Object | string)} Craziness
+ * @returns function | DomElement
+ */
 export function dom(...params /*node, ...props, ...children*/) {
 	if (params.some(isTagTmpl)) {
 		return domTagTmplBind(params);

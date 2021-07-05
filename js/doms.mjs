@@ -1,4 +1,4 @@
-/** wall-doms **/
+/** @module wall-doms **/
 /* concept change
 doms('tag1', 'tag2 class=blue', dom`tag3 class=${varClass}`, (t1,t2,t3)=>t1(
 	t2(), t3`id=specific`('cat')
@@ -13,7 +13,14 @@ export function camel2dash(camel) {
 	return camel.replace(/^([A-Z])/, (g)=>g[0].toLowerCase()).replace(/([A-Z])/g, (g) => '-'+g[0].toLowerCase());
 }
 
-// dom element templating
+/**
+ * dom element templating
+ * doms ( func ) :: return func results
+ * doms ( [strings], func ) :: return func results
+ * doms ( string, ...string ) :: elem bind?
+ * @param params 
+ * @returns function | DomElement
+ */
 export function doms(...params) {
 	let names = [];
 	let cb;
@@ -46,10 +53,6 @@ export function doms(...params) {
 	}
 	return args;
 }
-
-// doms ( func ) :: return func results
-// doms ( [strings], func ) :: return func results
-// doms ( string, ...string ) :: elem bind?
 
 /*
 
