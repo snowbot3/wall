@@ -32,4 +32,24 @@ QUnit.test('capitalize', function(assert) {
 	c('ABC','ABC');
 });
 
+QUnit.test('camel2dash', function(assert) {
+	function check(from, to) {
+		assert.equal(wall_oddity.camel2dash(from), to, `${from} => ${to}`);
+	}
+	check('abc', 'abc');
+	check('aBc', 'a-bc');
+	check('aBC', 'a-b-c');
+	check('ABC', 'a-b-c'); // no first dash
+});
+
+QUnit.test('dash2camel', function(assert) {
+	function check(from, to) {
+		assert.equal(wall_oddity.dash2camel(from), to, `${from} => ${to}`);
+	}
+	check('abc', 'abc');
+	check('a-bc', 'aBc');
+	check('a-b-c', 'aBC');
+	//check('a-b-c', 'ABC');
+});
+
 QUnit.skip('cycle', function(){});

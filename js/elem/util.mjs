@@ -1,5 +1,7 @@
 /** @module wall-elem-util */
 
+import { dash2camel } from '../oddity.mjs';
+
 /**
  * Alter a property on an element
  * @param {DomElement} elem
@@ -11,6 +13,10 @@ export function handleProp(elem, key, val) {
 	if ( key == 'class' ) { key = 'className'; }
 	if ( val[0] == '+' && key == 'className' && elem[key] ) { // must pre-exist
 		elem[key] += ' ' + val.slice(1);
+	} else if ( key.startsWith('data-') ) {
+		//elem.setAttribute(key, val);
+		const key2 = dash2camel(key.slice(5));
+		elem.dataset[key2] = val;
 	} else {
 		elem[key] = val;
 	}

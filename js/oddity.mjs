@@ -19,6 +19,15 @@ export function capitalize(str) {
 	);
 }
 
+export function camel2dash(camel) {
+	return camel.replace(/^([A-Z])/, (g)=>g[0].toLowerCase())
+		.replace(/([A-Z])/g, (g) => '-'+g[0].toLowerCase());
+}
+
+export function dash2camel(dash) {
+	return dash.toLowerCase().replace(/(-[a-z])/g, (g) => g[1].toUpperCase());
+}
+
 /** concept */
 async function cycle_await(obj, params) {
 	return cycle_inner(await obj, params);

@@ -39,6 +39,12 @@ QUnit.test('prop', function(assert) {
 	// class = className for setting
 	a.prop('class', 'other');
 	assert.equal(a.elem.className, 'other', 'a className');
+	// data-something = dataset.something
+	a.prop('data-something', 'data1');
+	assert.equal(a.elem.dataset.something, 'data1', 'a data-something');
+	// data-some-thing = dataset.someThing
+	a.prop('data-another-thing', 'data2');
+	assert.equal(a.elem.dataset.anotherThing, 'data2', 'a data-another-thing');
 });
 QUnit.test('props', function(assert) {
 	const a = elem('a');

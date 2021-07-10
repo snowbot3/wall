@@ -1,6 +1,6 @@
 /** wall-doms **/
 
-import { doms, camel2dash } from '../js/doms.mjs';
+import { doms } from '../js/doms.mjs';
 
 /** doms template utilities */
 QUnit.module('doms');
@@ -10,16 +10,6 @@ undefined doms([...String tagNames], [callFunction])
 undefined doms(function(...args){}) // use arg names as String Array
 undefined doms(str1, str2, function(arg1, arg2){}) // use str1 and str2 as tagnames for arg1 and arg2
 */
-
-QUnit.test('camel2dash', function(assert) {
-	function check(from, to) {
-		assert.equal(camel2dash(from), to, `${from} => ${to}`);
-	}
-	check('abc', 'abc');
-	check('aBc', 'a-bc');
-	check('aBC', 'a-b-c');
-	check('ABC', 'a-b-c'); // no first dash
-});
 
 QUnit.test('doms function', function(assert) {
 	const div = doms(function(div, span) {
