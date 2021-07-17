@@ -30,6 +30,7 @@ function isTagTmpl(param) {
  * @returns function
  */
 function domTagNameTmplBind(params) {
+	// TODO: should I be using raw?
 	const raw = Array.from(params[0].raw || params[0]);
 	const first = raw[0].trimLeft();
 	const nind = first.search(/[=\s]/);

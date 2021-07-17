@@ -28,6 +28,24 @@ QUnit.test('append', function(assert) {
 	assert.equal(div.elem.children[1].tagName, 'SPAN', 'child 2 tagName');
 	assert.equal(div.elem.children[1].textContent, 'span text 2', 'child 2 text');
 });
+QUnit.test('append array child', function(assert) {
+	const div = elem('div');
+	const s1 = document.createElement('span');
+	s1.textContent = 'span text 1';
+	const s2 = document.createElement('span');
+	s2.textContent = 'span text 2';
+	const s3 = document.createElement('span');
+	s3.textContent = 'span text 3';
+	div.append([s1,s2],s3);
+	assert.equal(div.elem.tagName, 'DIV', 'div tagName');
+	assert.equal(div.elem.children.length, 3, 'children.length');
+	assert.equal(div.elem.children[0].tagName, 'SPAN', 'child 1 tagName');
+	assert.equal(div.elem.children[0].textContent, 'span text 1', 'child 1 text');
+	assert.equal(div.elem.children[1].tagName, 'SPAN', 'child 2 tagName');
+	assert.equal(div.elem.children[1].textContent, 'span text 2', 'child 2 text');
+	assert.equal(div.elem.children[2].tagName, 'SPAN', 'child 3 tagName');
+	assert.equal(div.elem.children[2].textContent, 'span text 3', 'child 3 text');
+});
 QUnit.test('prop', function(assert) {
 	const a = elem('a');
 	a.prop('href', '#');

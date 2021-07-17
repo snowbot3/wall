@@ -1,17 +1,26 @@
-/* wall-quick-elem */
-/* quick is a step of shorthanding,
-	these quick function will wrap up parts that are wordy,
-	or should be simple.
-*/
-/* quick element wraps element functionality
-	such as events and appending.
-*/
+/**
+ * @module wall-quick-elem
+ * quick is a step of shorthanding, these quick function will wrap up parts that are wordy, or should be simple.
+ * quick element wraps element functionality such as events and appending.
+ */
 
-// qe.on(elem, fn);
+/**
+ * wrap event binding
+ * @param elem {DomElement}
+ * @param name {string} Event name
+ * @param fn {function} Event handler
+ * @param opt {Object}
+ */
 export function on(elem, name, fn, opts) {
-	// opts are special addEventListener options.
 	elem.addEventListener(name, fn, opts);
 }
+/**
+ * wrap event triggering
+ * @param elem {DomElement}
+ * @param name {string}
+ * @param detail {Object}
+ * @returns {Event}
+ */
 export function emit(elem, name, detail) {
 	// no clue how 'detail' works, just including it.
 	const ev = new CustomEvent(name, {
@@ -30,6 +39,8 @@ export function clear(elem) {
 function appendOne(elem, kid) {
 	if (kid instanceof Node) {
 		elem.appendChild(kid);
+	} else if (kid instanceof Array) {
+		append(elem, ...kid);
 	} else if (typeof(kid) == 'object') {
 		if (kid.elem instanceof Node) {
 			elem.appendChild(kid.elem);
